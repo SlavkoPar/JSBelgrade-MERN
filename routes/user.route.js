@@ -2,8 +2,8 @@ let mongoose = require("mongoose"),
     express = require("express"),
     router = express.Router();
 
-var SeedGroups = require('../seeds/create-groups.js');
-var Seed = require('../seeds/category-questions.js');
+var SeedGroups = require('./scripts/create-groups.js');
+var Seed = require('./scripts/category-questions.js');
 
 let User = require("../models/User");
 let Group = require("../models/Group");

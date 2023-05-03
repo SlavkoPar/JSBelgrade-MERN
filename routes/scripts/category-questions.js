@@ -4,12 +4,12 @@ mongoose.set('strictQuery', false);
 const ObjectId = mongoose.Types.ObjectId
 
 // Schema must match the seed
-const Category = require('../models/Category');
-const Question = require('../models/Question');
+const Category = require('../../models/Category');
+const Question = require('../../models/Question');
 
 // When exporting questions, export categories too
 const jsonCategories = require("./categoriesExported.json");
-const jsonQuestions = require("./questionsExported");
+const jsonQuestions = require("./questionsExported.json");
 
 //**PROTECT CREDS WITH THIS .ENV INSTEAD OF BRADS' DEFAULTJSON
 require('dotenv').config();

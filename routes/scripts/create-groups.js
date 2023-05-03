@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Group = require('../models/Group');
+const Group = require('../../models/Group');
 mongoose.set('strictQuery', false);
 
 const ObjectId = mongoose.Types.ObjectId
