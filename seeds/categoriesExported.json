@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341c4"
+  },
+  "title": "Chrome Extensions",
+  "level": 1,
+  "parentCategory": null
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341c6"
+  },
+  "title": "Features",
+  "level": 1,
+  "parentCategory": null
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341c8"
+  },
+  "title": "Bugs",
+  "level": 1,
+  "parentCategory": null
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341ca"
+  },
+  "title": "Chrome",
+  "level": 2,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c4"
+  }
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341cc"
+  },
+  "title": "MSEdge",
+  "level": 2,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c4"
+  }
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341ce"
+  },
+  "title": "Safari",
+  "level": 2,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c4"
+  }
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341d0"
+  },
+  "title": "Taxes",
+  "level": 2,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c6"
+  }
+},{
+  "_id": {
+    "$oid": "644256b4e4a50593d25341d2"
+  },
+  "title": "Rates",
+  "level": 3,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341d0"
+  }
+}]

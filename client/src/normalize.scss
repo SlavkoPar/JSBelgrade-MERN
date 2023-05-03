@@ -1,0 +1,133 @@
+@import "~bootstrap/scss/functions";
+
+$body-bg: rgb(248, 249, 250);
+$offcanvas-horizontal-width: 250px !default;
+
+$line-height-base: 1.25 !default;
+$font-size-base: 1.1rem !default; 
+
+$form-label-margin-bottom: .1rem !default;
+
+$btn-padding-y-sm: 0.125rem; // 0.25rem
+$btn-padding-x-sm : 0.25rem; // 0.5rem;
+$btn-font-size-sm: 0.875rem; // 0.875rem;
+$btn-border-radius-sm: 0.25rem;
+
+$badge-padding-x: .275em;
+$badge-padding-y: .125em;
+// $input-btn-padding-y-sm:      .125rem !default; // .25rem
+// $input-btn-padding-x-sm:      .25rem !default; // .5rem
+
+// $font-size-base:              .875rem !default; // Assumes the browser default, 1rem typically `16px`
+// $font-size-sm:                $font-size-base * .75 !default; // .875
+
+//$input-padding-y
+//$input-padding-x;
+//$small-font-size: .5 !default; // .875em
+
+// $body-bg: #000;
+
+@import "~bootstrap/scss/variables";
+.dropdown-item {
+    font-size: .9rem;
+}
+
+@import "~bootstrap/scss/mixins";
+
+
+
+.light {
+    .btn-link {
+         --bs-btn-color: #000;
+    }
+    .btn-link.answer {
+        --bs-btn-color: teal;
+    }
+    ul.inner-list .btn-link {
+        --bs-btn-color: #343a40;
+    }
+    --bs-link-hover-color: blue;
+    --bs-body-font-size: 0.75rem;
+    --bs-body-line-height: 1rem;
+    .form-control {
+        font-size: 0.75rem;
+    }
+}
+
+.dark {
+
+    $enable-gradients: true;
+
+    /* redefine theme colors for dark theme */
+    $primary: #012345;
+    $secondary: #111111;
+    $success: #222222;
+    $dark: #263C5C;
+
+    $theme-colors: ("primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "danger": $danger,
+        "info": $indigo,
+        "dark": $dark,
+        "light": #aaa,
+    );
+
+    /* redefine theme color variables */
+    @each $color,
+    $value in $theme-colors {
+        --#{$variable-prefix}#{$color}: #{$value};
+    }
+
+    $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+
+    @each $color,
+    $value in $theme-colors-rgb {
+        --#{$variable-prefix}#{$color}-rgb: #{$value};
+    }
+
+    $body-color: #eeeeee;
+    $body-bg: #263C5C;
+
+    --#{$variable-prefix}body-color: #{$body-color};
+    --#{$variable-prefix}body-bg: #{$body-bg};
+
+    --#{$variable-prefix}modal-color: #{$body-color};
+    --#{$variable-prefix}modal-bg: #{$body-bg};
+
+    .list-group-item-dark {
+        color: #eeeeee;
+        background-color: #263C5C;
+    }
+
+    .btn-dark {
+        --bs-btn-color: #eeeeee;
+        --bs-btn-bg: #263C5C;
+    }
+
+    .modal-content {
+        background-color: #263C5C;
+        color: #fff;
+    }
+
+    .btn-link {
+        --bs-btn-color: orange;
+    }
+
+    .btn-link.answer {
+        --bs-btn-color: lightblue;
+    }
+
+    ul.inner-list .btn-link {
+        --bs-btn-color: #eee;
+    }
+
+    --bs-link-hover-color: white;
+
+    --bs-body-font-size: 0.75rem;
+    .form-control {
+        font-size: 0.75rem;
+    }
+}
+
+@import "~bootstrap/scss/bootstrap";

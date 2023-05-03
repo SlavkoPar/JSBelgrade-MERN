@@ -1,0 +1,179 @@
+[{
+  "title": "Why promocode hasn't been applied?",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c8"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Which promocode will be applied?",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c6"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Which promocode rates do we apply?",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341c6"
+  },
+  "questionAnswers": [
+    {
+      "_id": {
+        "$oid": "644256b3e4a50593d25341c2"
+      },
+      "assigned": {
+        "date": "2023-04-21T09:29:40.556Z",
+        "by": {
+          "userId": "644256aee4a50593d25341b6"
+        }
+      }
+    }
+  ],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Which promocode rates do you apply?",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341d2"
+  },
+  "questionAnswers": [
+    {
+      "_id": {
+        "$oid": "644256b3e4a50593d25341c2"
+      },
+      "assigned": {
+        "date": "2023-04-21T09:29:25.520Z",
+        "by": {
+          "userId": "644256aee4a50593d25341b6"
+        }
+      }
+    }
+  ],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Does Chrome support Manifest 3 Extensions?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341ca"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Can you install Extensions in Safari for Mac?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341ce"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "How do I install Chrome Extensions on Safari?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341ce"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Where is the Safari Extensions folder?",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341ce"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "How to add an extension to Safari",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341ce"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Does Microsoft Edge have extensions?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341cc"
+  },
+  "questionAnswers": [
+    {
+      "_id": {
+        "$oid": "644256b3e4a50593d25341bc"
+      },
+      "assigned": {
+        "date": "2023-04-21T09:28:46.067Z",
+        "by": {
+          "userId": "644256aee4a50593d25341b6"
+        }
+      }
+    }
+  ],
+  "source": 0,
+  "status": 0
+},{
+  "title": "How do I expand my Microsoft Edge browser?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341cc"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "What file type are Microsoft Edge extensions?",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341cc"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Where is Edge extension data stored?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341cc"
+  },
+  "questionAnswers": [
+    {
+      "_id": {
+        "$oid": "644256b3e4a50593d25341be"
+      },
+      "assigned": {
+        "date": {
+          "$date": "2023-04-21T09:27:51.151Z"
+        },
+        "by": {
+          "userId": {
+            "$oid": "644256aee4a50593d25341b6"
+          }
+        }
+      }
+    }
+  ],
+  "source": 0,
+  "status": 0
+},{
+  "title": "Is Microsoft Edge extension safe?\n",
+  "level": 7,
+  "parentCategory": {
+    "$oid": "644256b4e4a50593d25341cc"
+  },
+  "questionAnswers": [],
+  "source": 0,
+  "status": 0
+}]
