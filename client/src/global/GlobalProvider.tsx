@@ -85,7 +85,6 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
           error: new AxiosError('signIn error') // new AxiosError(error?.response?.data, error)
         }
       });
-      return false;
     }
     return null;
 

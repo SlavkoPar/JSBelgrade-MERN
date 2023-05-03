@@ -24,7 +24,10 @@ const RegisterForm = () => {
   const [showMessage, setShowMessage] = useState(false);
 
   const submitForm = async (loginUser: ILoginUser) => {
-    await registerUser(loginUser);
+    const user = await registerUser(loginUser);
+    if (!user)
+      return;
+      
     setShowMessage(true)
     closeForm();
   }
