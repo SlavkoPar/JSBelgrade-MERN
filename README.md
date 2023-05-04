@@ -22,11 +22,11 @@ Runs concurrently server script "/server.js" and the React App "/client/src" in 
 
 ### Running React and Node.js in one shot with concurrently!
 To make concurrently work with React and Node, we added scripts in **package.json**.\
-  * "scripts": {\
-    * "server": "nodemon server.js",\
-    * "client": "npm start --prefix client",\
-    * "dev": "concurrently \"npm run server\" \"npm run client\""\
-  * }\
+&nbsp;&nbsp;"scripts": {\
+&nbsp;&nbsp;&nbsp;&nbsp;"server": "nodemon server.js",\
+&nbsp;&nbsp;&nbsp;&nbsp;"client": "npm start --prefix client",\
+&nbsp;&nbsp;&nbsp;&nbsp;"dev": "concurrently \"npm run server\" \"npm run client\""\
+&nbsp;&nbsp;}\
 We can concurrently **debug** Node and React
 
 ### `yarn start`
