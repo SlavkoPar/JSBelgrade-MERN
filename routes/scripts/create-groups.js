@@ -7,12 +7,8 @@ const ObjectId = mongoose.Types.ObjectId
 
 //**PROTECT CREDS WITH THIS .ENV INSTEAD OF BRADS' DEFAULTJSON
 require('dotenv').config();
-const db = process.env.MY_MONGO_URI;
-console.log('--->', { db })
-
-const map_Parent_Id = {}
-const map_ParentKind_Id = {}
-const map_Answer_Id = {}
+// const db = process.env.MY_MONGO_URI;
+// console.log('--->', { db })
 
 //   seeding function
 const groups = [

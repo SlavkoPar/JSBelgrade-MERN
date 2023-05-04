@@ -19,12 +19,12 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
   const [globalState, dispatch] = useReducer(globalReducer, initialGlobalState);
 
   const health = useCallback(() => {
-    const url = `api/test`;
+    const url = `api/health`;
     axios
       .post(url)
       .then(({ status }) => {
         if (status === 200) {
-          console.log('test successfull:', status)
+          console.log('health successfull:', status)
         }
         else {
           console.log('Status is not 200', status)

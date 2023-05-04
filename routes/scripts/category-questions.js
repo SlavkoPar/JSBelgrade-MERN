@@ -13,8 +13,8 @@ const jsonQuestions = require("./questionsExported.json");
 
 //**PROTECT CREDS WITH THIS .ENV INSTEAD OF BRADS' DEFAULTJSON
 require('dotenv').config();
-const db = process.env.MY_MONGO_URI;
-console.log('--->', { db })
+// const db = process.env.MY_MONGO_URI;
+// console.log('--->', { db })
 
 const map_Parent_Id = {}
 const map_ParentKind_Id = {}

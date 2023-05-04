@@ -76,9 +76,6 @@ const RegisterForm = () => {
   if (showMessage) {
     return (
       <div className="form bg-warning">
-        <p><b>Please check your Email Inbox and confirm registration!</b></p>
-        <p>You can send email to invite other people, to become members of your Workspace</p>
-        <p>&nbsp;</p>
         <p>Small demo database has been created, to better understand relations:</p>
         <p>Category -{">"} Questions</p>
         <p>You can easily remove these records</p>

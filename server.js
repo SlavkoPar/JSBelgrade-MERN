@@ -44,8 +44,8 @@ app.use('/api/categories', categoryRoute)
 app.use('/api/questions', questionRoute)
 
 // TEST ROUTE
-app.use('/api/test', (req, res)=>{
-    console.log("/test request called");
+app.use('/api/health', (req, res)=>{
+    console.log("/health request called");
     res.send('Welcome to GeeksforGeeks');
 })
 
