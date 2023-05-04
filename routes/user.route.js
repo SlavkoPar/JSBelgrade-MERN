@@ -13,11 +13,6 @@ const ObjectId = mongoose.Types.ObjectId
 router.post("/register-user", async (req, res, next) => {
     let { wsId, wsName, userName, password, color, email, created, modified } = req.body;
     try {
-        const cnt = await Group.countDocuments({});
-        if (cnt === 0) {
-            await SeedGroups.createGroups(created.by.userId);
-        }
-        
         let user = await User.findOne({ email });
         if (user) {
             return next(new Error(`User with email: ${email} already registered`)); // status 401
@@ -34,9 +29,14 @@ router.post("/register-user", async (req, res, next) => {
                 userId: new ObjectId('63f79a7ed73fa58fba7487fe') // superUserId, Slavko is superUser
             }
         }
+        const cnt = await Group.countDocuments({});
+        if (cnt === 0) {
+            await SeedGroups.createGroups(created.by.userId);
+        }
+
         const ws = {
             _id: '000000000000000000000000',
-            wsName: 'MySPACE'
+            wsName
         }
         wsId = ws._id;
 

@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const DateBy = require('./DateBy')
 
 const { Schema } = mongoose;
-const { ObjectId, Array } = Schema.Types;
+const { ObjectId } = Schema.Types;
 
-let questionSchema = new Schema({
+let menuSchema = new Schema({
     wsId: {
         type: ObjectId, required: true, index: { unique: false }
-    },
+    },  
     title: {
         type: String,
         required: true,
@@ -17,12 +17,10 @@ let questionSchema = new Schema({
         type: Number,
         required: true
     },
-    parentCategory: {
+    parentMenu: {
         type: ObjectId,
         index: { unique: false }
     },
-	source: 0,
-	status: 0,
     created: {
         type: DateBy,
         required: true
@@ -31,10 +29,10 @@ let questionSchema = new Schema({
         type: DateBy
     }
 }, {
-    collection: 'questions'
+    collection: 'menus'
 })
 
-questionSchema.index({ wsId: 1, title: 1 }, { unique: true } );
-questionSchema.index({ title: "text" }); 
+//categorySchema.index({ parentCategory: 1 });   // level
 
-module.exports = mongoose.model('Question', questionSchema)
+menuSchema.index({ wsId: 1, title: 1 }, { unique: true } );
+module.exports = mongoose.model('Menu', menuSchema)

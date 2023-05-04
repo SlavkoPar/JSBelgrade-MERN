@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestion, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faQuestion, faThumbsUp, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -78,12 +78,19 @@ export function Navigation(props: INavigation) {
                 }
               }}
             >
-              
+
               {isAuthenticated &&
                 <NavLink to="/categories/null" className="nav-link">
                   <FontAwesomeIcon icon={faQuestion} color='lightblue' />{' '}Questions
                 </NavLink>
               }
+
+              {isAuthenticated &&
+                <NavLink to="/menus/null" className="nav-link">
+                  <FontAwesomeIcon icon={faThumbsUp} color='lightblue' />{' '}Meals
+                </NavLink>
+              }
+
 
               {/* {isAuthenticated && [ROLES.OWNER, ROLES.ADMIN].includes(role) &&
                 <NavLink to="/workspaces" className="nav-link">
@@ -131,7 +138,7 @@ export function Navigation(props: INavigation) {
                   </NavDropdown.Item>
 
                   <NavDropdown.Divider />
-                  
+
                   <NavDropdown.Item as={Link} to="/health" >
                     Health
                   </NavDropdown.Item>

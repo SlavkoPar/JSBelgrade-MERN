@@ -54,23 +54,12 @@ const seedCats = async (wsId, userId) => {
 const seedQuestions = async (wsId, userId) => {
   try {
     for (const quest of jsonQuestions) {
-      const { title, level, parentCategory, questionAnswers, status, source } = quest;
+      const { title, level, parentCategory, status, source } = quest;
       const question = {
         wsId,
         title,
         parentCategory: map_Parent_Id[parentCategory['$oid']],
         level,
-        questionAnswers: questionAnswers.length === 0 
-          ? []
-          : questionAnswers.map(a => ({
-            _id: map_Answer_Id[a._id['$oid']],
-            assigned: {
-              date: new Date(),
-              by: {
-                userId
-              }
-            }
-          })),
         status,
         source,
         created: {

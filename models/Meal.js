@@ -4,7 +4,7 @@ const DateBy = require('./DateBy')
 const { Schema } = mongoose;
 const { ObjectId, Array } = Schema.Types;
 
-let questionSchema = new Schema({
+let mealSchema = new Schema({
     wsId: {
         type: ObjectId, required: true, index: { unique: false }
     },
@@ -17,7 +17,7 @@ let questionSchema = new Schema({
         type: Number,
         required: true
     },
-    parentCategory: {
+    parentMenu: {
         type: ObjectId,
         index: { unique: false }
     },
@@ -31,10 +31,10 @@ let questionSchema = new Schema({
         type: DateBy
     }
 }, {
-    collection: 'questions'
+    collection: 'meals'
 })
 
-questionSchema.index({ wsId: 1, title: 1 }, { unique: true } );
-questionSchema.index({ title: "text" }); 
+mealSchema.index({ wsId: 1, title: 1 }, { unique: true } );
+mealSchema.index({ title: "text" }); 
 
-module.exports = mongoose.model('Question', questionSchema)
+module.exports = mongoose.model('Question', mealSchema)

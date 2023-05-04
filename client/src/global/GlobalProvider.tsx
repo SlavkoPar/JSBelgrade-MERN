@@ -46,13 +46,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       role: ROLES.VIEWER,
       email: loginUser.email!,
       color: 'blue',
-      confirmed: false,
-      created: {
-        date: new Date(),
-        by: {
-          userId: new Types.ObjectId() //globalStore.authUser.userId
-        }
-      }
+      confirmed: false
     }
     const url = `/api/users/register-user`;
     try {

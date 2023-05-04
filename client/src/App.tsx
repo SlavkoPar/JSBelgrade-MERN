@@ -13,6 +13,7 @@ import LoginForm from 'global/LoginForm';
 import About from 'About';
 import Health from 'Health';
 import { Types } from 'mongoose';
+import Menus from 'menus/Menus';
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
             <Routes>
               <Route path="/" element={!isAuthenticated ? <About /> : <Categories />} />
               <Route path="/categories/:categoryId_questionId" element={<Categories />} />
+              <Route path="/menus/:menuId_mealId" element={<Menus />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/sign-in" element={<LoginForm initialValues={formInitialValues} />} />
               <Route path="/about" element={<About />} />

@@ -4,7 +4,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341c8"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -13,7 +12,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341c6"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -22,19 +20,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341c6"
   },
-  "questionAnswers": [
-    {
-      "_id": {
-        "$oid": "644256b3e4a50593d25341c2"
-      },
-      "assigned": {
-        "date": "2023-04-21T09:29:40.556Z",
-        "by": {
-          "userId": "644256aee4a50593d25341b6"
-        }
-      }
-    }
-  ],
   "source": 0,
   "status": 0
 },{
@@ -43,19 +28,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341d2"
   },
-  "questionAnswers": [
-    {
-      "_id": {
-        "$oid": "644256b3e4a50593d25341c2"
-      },
-      "assigned": {
-        "date": "2023-04-21T09:29:25.520Z",
-        "by": {
-          "userId": "644256aee4a50593d25341b6"
-        }
-      }
-    }
-  ],
   "source": 0,
   "status": 0
 },{
@@ -64,7 +36,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341ca"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -73,7 +44,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341ce"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -82,7 +52,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341ce"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -91,7 +60,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341ce"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -100,7 +68,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341ce"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -109,19 +76,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341cc"
   },
-  "questionAnswers": [
-    {
-      "_id": {
-        "$oid": "644256b3e4a50593d25341bc"
-      },
-      "assigned": {
-        "date": "2023-04-21T09:28:46.067Z",
-        "by": {
-          "userId": "644256aee4a50593d25341b6"
-        }
-      }
-    }
-  ],
   "source": 0,
   "status": 0
 },{
@@ -130,7 +84,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341cc"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -139,7 +92,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341cc"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 },{
@@ -148,23 +100,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341cc"
   },
-  "questionAnswers": [
-    {
-      "_id": {
-        "$oid": "644256b3e4a50593d25341be"
-      },
-      "assigned": {
-        "date": {
-          "$date": "2023-04-21T09:27:51.151Z"
-        },
-        "by": {
-          "userId": {
-            "$oid": "644256aee4a50593d25341b6"
-          }
-        }
-      }
-    }
-  ],
   "source": 0,
   "status": 0
 },{
@@ -173,7 +108,6 @@
   "parentCategory": {
     "$oid": "644256b4e4a50593d25341cc"
   },
-  "questionAnswers": [],
   "source": 0,
   "status": 0
 }]
