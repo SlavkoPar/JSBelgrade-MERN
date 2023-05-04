@@ -9,14 +9,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 **N**ode.js\
 **R**eact(.js) — a client-side JavaScript framework.\
 
-Real Support-Knowledge application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) that uses Category/Question template.
+## Support-Knowledge application
+
+Real application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) which uses Category/Question template.
 
 ## Available Scripts
 
 In the project directory, you can run:
 ### `yarn run dev`
-Runs concurrently server script "backend/server.js" and the React App in the development mode.\
-"backend/server.js" script starts 'Express' web application framework and connects MongoDB database.
+Runs concurrently server script "/server.js" and the React App "/client/src" in the development mode.\
+"/server.js" script starts 'Express' web application framework and connects MongoDB database.
+
+### Running React and Node.js in one shot with concurrently!
+To make concurrently work with React and Node, we added scripts in **package.json**.
+"scripts": {
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+}
+We can concurrently **debug** Node and React
 
 ### `yarn start`
 
