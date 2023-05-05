@@ -38,8 +38,8 @@ It is especially useful for Admin modules, where app sometimes have many tables 
   *  NodeJS script copies **categories** folder to **menus** folder.
   *  After that, it replaces names of files and names of variables used in code.
   *  For example **CategoryRow** is replaced to **MenuRow**, and so on.
-  *  Generator also creates MongoDB models: /models/Menu.js and /models/Meal.js
-  *  and Express routes: /routes/menu.route.js and /routes/meal.route.js
+  *  Generator creates MongoDB models: /models/Menu.js and /models/Meal.js
+  *  Generator creates Express routes: /routes/menu.route.js and /routes/meal.route.js
 Next version of Generator will be much more sofisticated.
 
 ### `yarn build`
