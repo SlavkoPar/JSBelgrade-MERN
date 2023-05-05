@@ -34,7 +34,7 @@ We can concurrently **debug** Node and React
 
 Generator will generate code for CRUD operations of two related entites: 'parent table' -> 'child table',\
 based on relation **categories** -> **questions**.\
-It is especially useful for Admin modules, where app sometimes have many tables to maintain.
+It is especially useful for Admin modules, where apps sometimes have many tables to maintain.
   *  NodeJS script copies **categories** folder to **menus** folder.
   *  It replaces names of files.
   *  It replaces names of variables used in code, for example **CategoryRow** to **MenuRow**.
