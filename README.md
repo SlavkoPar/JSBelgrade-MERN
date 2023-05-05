@@ -29,18 +29,19 @@ To make concurrently work with React and Node, we added scripts in **package.jso
 &nbsp;&nbsp;}\
 We can concurrently **debug** Node and React
 
-### `yarn start`
+### Generator
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### `yarn run generate-menu-meal`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Generator will generate code for CRUD opertions of two related entites: 'parent table' -> 'child table',\
+based on relation 'categories' -> 'questions'.\
+It is especially useful fo Amdin modules, where app sometimes has many tables to maintain.\
+  *  This script copies 'categories' folder to 'menus' folder.\
+  *  After that, it replaces names of files and names of variables used in code.\
+For example 'CategoryRow' is replaced to 'MenuRow', and so on.\
+  *  Generator also creates MongoDB models: /models/Menu.js and /models/Meal.js\
+  *  and Express routes: /routes/menu.route.js and /routes/meal.route.js\
+Next version of Generator will be much sofisticated.
 
 ### `yarn build`
 
