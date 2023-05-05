@@ -100,10 +100,18 @@ async function generate() {
     }
 
     // 3)
-    await generateModels('Menu', 'Meal')
+    await generateModels('Menu', 'Meal');
 
     // 4)
-    await generateRoutes('menu', 'meal')
+    await generateRoutes('menu', 'meal');
+    // 5)
+    console.log("=======================================")
+    console.log('To add additional fields to Menu or Meal')
+    console.log('Modify /models/Menu')
+    console.log('Modify /src/menus/types')
+    console.log('Modify /src/menus/components/MenuForm.tsx')
+    console.log('Or wait for more sofisticated generator')
+    console.log("=======================================")
 }
 
 generate();
