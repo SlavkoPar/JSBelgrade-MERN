@@ -11,6 +11,9 @@ const userRoute = require('./routes/user.route')
 const categoryRoute = require('./routes/category.route')
 const questionRoute = require('./routes/question.route')
 
+const menuRoute = require('./routes/menu.route')
+const mealRoute = require('./routes/meal.route')
+
 // Configure mongoDB Database
 //mongoose.set('useNewUrlParser', true);
 // mongoose.set('useFindAndModify', false);
@@ -43,7 +46,10 @@ app.use('/api/users', userRoute)
 app.use('/api/categories', categoryRoute)
 app.use('/api/questions', questionRoute)
 
-// TEST ROUTE
+app.use('/api/menus', menuRoute)
+app.use('/api/meals', mealRoute)
+
+// HEALTH ROUTE
 app.use('/api/health', (req, res)=>{
     console.log("/health request called");
     res.send('Welcome to GeeksforGeeks');

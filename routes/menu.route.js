@@ -4,12 +4,12 @@ let mongoose = require("mongoose"),
 
 const ObjectId = mongoose.Types.ObjectId
 
-let categorySchema = require("../models/Category");
+let menuSchema = require("../models/Menu");
 
-// CREATE Category
-router.post("/create-category", (req, res, next) => {
+// CREATE Menu
+router.post("/create-menu", (req, res, next) => {
   req.body.modified = null; // to be more readable, mongo treats undefineds as nulls
-  categorySchema.create(req.body, (error, data) => {
+  menuSchema.create(req.body, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -22,9 +22,9 @@ router.post("/create-category", (req, res, next) => {
 const arrPipeline = [
   {
     $lookup: {
-      from: "questions",
+      from: "meals",
       localField: "_id",
-      foreignField: "parentCategory",
+      foreignField: "parentMenu",
       pipeline: [
         {
           $project: {
@@ -32,20 +32,20 @@ const arrPipeline = [
           },
         },
       ],
-      as: "fromQuestions",
+      as: "fromMeals",
     },
   },
   {
     $project: {
       title: 1,
       level: 1,
-      parentCategory: 1,
+      parentMenu: 1,
       created: 1,
       createdBy: 1,
       modified: 1,
       modifiedBy: 1,
-      numOfQuestions: { $size: "$fromQuestions" },
-      fromQuestions: 1
+      numOfMeals: { $size: "$fromMeals" },
+      fromMeals: 1
     },
   },
 
@@ -156,21 +156,21 @@ const arrPipeline = [
     $project: {
       title: 1,
       level: 1,
-      parentCategory: 1,
+      parentMenu: 1,
       created: 1,
       createdBy: 1,
       modified: 1,
       modifiedBy: 1,
-      numOfQuestions: 1
+      numOfMeals: 1
     },
   },
 
 ]
 
 
-// Get Categories
+// Get Menus
 // router.get("/", (req, res, next) => {
-//     categorySchema.find((error, data) => {
+//     menuSchema.find((error, data) => {
 //         if (error) {
 //             return next(error);
 //         } else {
@@ -179,9 +179,9 @@ const arrPipeline = [
 //     });
 // });
 
-// Get Categories
+// Get Menus
 router.get('/', (req, res, next) => {
-  categorySchema.aggregate(arrPipeline, (error, data) => {
+  menuSchema.aggregate(arrPipeline, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -191,33 +191,33 @@ router.get('/', (req, res, next) => {
 })
 
 
-// Get Sub Categories
+// Get Sub Menus
 router.get('/:wsId_id', (req, res, next) => {
   const arr = req.params.wsId_id.split('-');
   const wsId = arr[0];
-  const categoryId = arr[1];
-  const match = (categoryId === 'null') ? {
+  const menuId = arr[1];
+  const match = (menuId === 'null') ? {
     wsId: ObjectId(wsId),
-    parentCategory: null
+    parentMenu: null
   } : {
-    parentCategory: ObjectId(categoryId)
+    parentMenu: ObjectId(menuId)
   }
-  categorySchema.aggregate([
+  menuSchema.aggregate([
     {
       $match: match
     },
     ...arrPipeline
     // {
     //   $lookup: {
-    //     from: "questions",
+    //     from: "meals",
     //     localField: "_id",
-    //     foreignField: "parentCategory",
+    //     foreignField: "parentMenu",
     //     pipeline: [
     //       {
     //         $project: {
     //           _id: 1
     //           //title: 1,
-    //           //parentCategory: 1,
+    //           //parentMenu: 1,
     //           //created: 1,
     //           // createdBy: 1,
     //           // modified: 1,
@@ -225,7 +225,7 @@ router.get('/:wsId_id', (req, res, next) => {
     //         },
     //       },
     //     ],
-    //     as: "questions",
+    //     as: "meals",
     //   },
     //}       
   ], (error, data) => {
@@ -239,11 +239,11 @@ router.get('/:wsId_id', (req, res, next) => {
 })
 
 
-// Get Single Category
+// Get Single Menu
 router
-  .route("/get-category/:id")
+  .route("/get-menu/:id")
   .get((req, res, next) => {
-    categorySchema.aggregate([
+    menuSchema.aggregate([
       {
         $match: {
           _id: ObjectId(req.params.id),
@@ -252,7 +252,7 @@ router
       ...arrPipeline,
       /*{
         $lookup: {
-          from: "questions",
+          from: "meals",
           let: {
             // searchId: {
             //   $toObjectId: "$_id",
@@ -266,7 +266,7 @@ router
               $match: {
                 $expr: [
                   {
-                    parentCategory: "$$searchId",
+                    parentMenu: "$$searchId",
                   },
                 ],
               },
@@ -282,19 +282,19 @@ router
               },
             },
           ],
-          as: "questions",
+          as: "meals",
         },
       }*/
       {
         $lookup: {
-          from: "questions",
+          from: "meals",
           localField: "_id",
-          foreignField: "parentCategory",
+          foreignField: "parentMenu",
           pipeline: [
             {
               $project: {
                 title: 1,
-                parentCategory: 1,
+                parentMenu: 1,
                 level: 1,
                 created: 1,
                 // createdBy: 1,
@@ -303,7 +303,7 @@ router
               },
             },
           ],
-          as: "questions",
+          as: "meals",
         },
       }
     ], (error, data) => {
@@ -315,12 +315,12 @@ router
     });
   })
 
-// UPDATE Category
+// UPDATE Menu
 router
-  .route("/update-category/:id")
-  // Get Single Category
+  .route("/update-menu/:id")
+  // Get Single Menu
   .get((req, res, next) => {
-    categorySchema.findById(
+    menuSchema.findById(
       req.params.id, (error, data) => {
         if (error) {
           return next(error);
@@ -330,9 +330,9 @@ router
       });
   })
 
-  // Update Category Data
+  // Update Menu Data
   .put((req, res, next) => {
-    categorySchema.findByIdAndUpdate(
+    menuSchema.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
@@ -346,16 +346,16 @@ router
           return next(error);
         } else {
           res.json(data);
-          console.log("Category updated successfully !", data);
+          console.log("Menu updated successfully !", data);
         }
       }
     );
   });
 
-// Delete Category
-router.delete("/delete-category/:id",
+// Delete Menu
+router.delete("/delete-menu/:id",
   (req, res, next) => {
-    categorySchema.findByIdAndRemove(
+    menuSchema.findByIdAndRemove(
       req.params.id, (error, data) => {
         if (error) {
           return next(error);
@@ -368,103 +368,103 @@ router.delete("/delete-category/:id",
   });
 
 
-router.get('/get-parent-categories/:categoryId', async (req, res, next) => {
-  const { categoryId } = req.params;
+router.get('/get-parent-menus/:menuId', async (req, res, next) => {
+  const { menuId } = req.params;
   const _ids = [];
-  categorySchema.findById(categoryId, function (err, category) {
+  menuSchema.findById(menuId, function (err, menu) {
     if (err) {
       console.log(err);
     }
     else {
-      if (!category) {
+      if (!menu) {
         res.json(_ids);
         return;
       }
-      _ids.unshift({ _id: categoryId, title: category.title });
-      if (category.parentCategory === null) {
+      _ids.unshift({ _id: menuId, title: menu.title });
+      if (menu.parentMenu === null) {
         res.json(_ids);
       }
       else {
-        categorySchema.findById(category.parentCategory, function (err, category) {
+        menuSchema.findById(menu.parentMenu, function (err, menu) {
           if (err) {
             console.log(err);
           }
           else {
-            if (!category) {
+            if (!menu) {
               res.json(_ids);
               return;
             }
-            _ids.unshift({ _id: category._id, title: category.title });
-            if (category.parentCategory === null) {
+            _ids.unshift({ _id: menu._id, title: menu.title });
+            if (menu.parentMenu === null) {
               res.json(_ids);
             }
             else {
-              categorySchema.findById(category.parentCategory, function (err, category) {
+              menuSchema.findById(menu.parentMenu, function (err, menu) {
                 if (err) {
                   console.log(err);
                 }
                 else {
-                  if (!category) {
+                  if (!menu) {
                     res.json(_ids);
                     return;
                   }
-                  _ids.unshift({ _id: category._id, title: category.title });
-                  if (category.parentCategory === null) {
+                  _ids.unshift({ _id: menu._id, title: menu.title });
+                  if (menu.parentMenu === null) {
                     res.json(_ids);
                   }
                   else {
-                    categorySchema.findById(category.parentCategory, function (err, category) {
+                    menuSchema.findById(menu.parentMenu, function (err, menu) {
                       if (err) {
                         console.log(err);
                       }
                       else {
-                        if (!category) {
+                        if (!menu) {
                           res.json(_ids);
                           return;
                         }
-                        _ids.unshift({ _id: category._id, title: category.title });
-                        if (category.parentCategory === null) {
+                        _ids.unshift({ _id: menu._id, title: menu.title });
+                        if (menu.parentMenu === null) {
                           res.json(_ids);
                         }
                         else {
-                          categorySchema.findById(category.parentCategory, function (err, category) {
+                          menuSchema.findById(menu.parentMenu, function (err, menu) {
                             if (err) {
                               console.log(err);
                             }
                             else {
-                              if (!category) {
+                              if (!menu) {
                                 res.json(_ids);
                                 return;
                               }
-                              _ids.unshift(category._id);
-                              if (category.parentCategory === null) {
+                              _ids.unshift(menu._id);
+                              if (menu.parentMenu === null) {
                                 res.json(_ids);
                               }
                               else {
-                                categorySchema.findById(category.parentCategory, function (err, category) {
+                                menuSchema.findById(menu.parentMenu, function (err, menu) {
                                   if (err) {
                                     console.log(err);
                                   }
                                   else {
-                                    if (!category) {
+                                    if (!menu) {
                                       res.json(_ids);
                                       return;
                                     }
-                                    _ids.unshift(category._id);
-                                    if (category.parentCategory === null) {
+                                    _ids.unshift(menu._id);
+                                    if (menu.parentMenu === null) {
                                       res.json(_ids);
                                     }
                                     else {
-                                      categorySchema.findById(category.parentCategory, function (err, category) {
+                                      menuSchema.findById(menu.parentMenu, function (err, menu) {
                                         if (err) {
                                           console.log(err);
                                         }
                                         else {
-                                          if (!category) {
+                                          if (!menu) {
                                             res.json(_ids);
                                             return;
                                           }
-                                          _ids.unshift(category._id);
+                                          _ids.unshift(menu._id);
                                           res.json(_ids);
                                         }
                                       });

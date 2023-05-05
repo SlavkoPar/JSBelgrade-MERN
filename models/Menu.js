@@ -32,7 +32,7 @@ let menuSchema = new Schema({
     collection: 'menus'
 })
 
-//categorySchema.index({ parentCategory: 1 });   // level
+//menuSchema.index({ parentMenu: 1 });   // level
 
 menuSchema.index({ wsId: 1, title: 1 }, { unique: true } );
 module.exports = mongoose.model('Menu', menuSchema)

@@ -5,13 +5,13 @@ let mongoose = require("mongoose"),
 
 const ObjectId = mongoose.Types.ObjectId
 
-let questionSchema = require("../models/Question");
-let categorySchema = require("../models/Category");
+let mealSchema = require("../models/Meal");
+let menuSchema = require("../models/Menu");
 
-// CREATE Question
-router.post("/create-question", (req, res, next) => {
+// CREATE Meal
+router.post("/create-meal", (req, res, next) => {
   req.body.modified = null; // to be more readable, mongo treats undefineds as nulls
-  questionSchema.create(req.body, (error, data) => {
+  mealSchema.create(req.body, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -21,7 +21,7 @@ router.post("/create-question", (req, res, next) => {
   });
 });
 
-const questionPipeline = (id) => [
+const mealPipeline = (id) => [
   {
     $match: {
       _id: ObjectId(id),
@@ -137,7 +137,7 @@ const arrPipeline = [
     $project: {
       title: 1,
       level: 1,
-      parentCategory: 1,
+      parentMenu: 1,
       created: 1,
       createdBy: 1,
       modified: 1,
@@ -146,9 +146,9 @@ const arrPipeline = [
   },
 ]
 
-// Get Questions
+// Get Meals
 // router.get("/", (req, res, next) => {
-//     questionSchema.find((error, data) => {
+//     mealSchema.find((error, data) => {
 //         if (error) {
 //             return next(error);
 //         } else {
@@ -157,9 +157,9 @@ const arrPipeline = [
 //     });
 // });
 
-// Get Questions
+// Get Meals
 router.get('/', (req, res, next) => {
-  questionSchema.aggregate(arrPipeline, (error, data) => {
+  mealSchema.aggregate(arrPipeline, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -168,12 +168,12 @@ router.get('/', (req, res, next) => {
   });
 })
 
-// Get Questions
+// Get Meals
 router.get('/:id', (req, res, next) => {
-  questionSchema.aggregate([
+  mealSchema.aggregate([
     {
       $match: {
-        parentCategory: req.params.id !== 'null' ? ObjectId(req.params.id) : null
+        parentMenu: req.params.id !== 'null' ? ObjectId(req.params.id) : null
       }
     },
     ...arrPipeline
@@ -189,12 +189,12 @@ router.get('/:id', (req, res, next) => {
 
 
 
-// Get Single Question
+// Get Single Meal
 router
-  .route("/get-question/:id")
+  .route("/get-meal/:id")
   .get((req, res, next) => {
-    questionSchema.aggregate([
-      ...questionPipeline(req.params.id),
+    mealSchema.aggregate([
+      ...mealPipeline(req.params.id),
       ...arrPipeline
     ], (error, data) => {
       if (error) {
@@ -205,12 +205,12 @@ router
     });
   })
 
-// UPDATE Question
+// UPDATE Meal
 router
-  .route("/update-question/:id")
-  // Get Single Question
+  .route("/update-meal/:id")
+  // Get Single Meal
   .get((req, res, next) => {
-    questionSchema.findById(
+    mealSchema.findById(
       req.params.id, (error, data) => {
         if (error) {
           return next(error);
@@ -219,9 +219,9 @@ router
         }
       });
   })
-  // Update Question Data
+  // Update Meal Data
   .put((req, res, next) => {
-    questionSchema.findByIdAndUpdate(
+    mealSchema.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
@@ -235,23 +235,23 @@ router
           return next(error);
         } else {
           res.json(data);
-          console.log("Question updated successfully !", data);
+          console.log("Meal updated successfully !", data);
         }
       }
     );
   });
 
 
-// Delete Question
-router.delete("/delete-question/:id",
+// Delete Meal
+router.delete("/delete-meal/:id",
   (req, res, next) => {
-    questionSchema.findByIdAndRemove(
-      req.params.id, (error, question) => {
+    mealSchema.findByIdAndRemove(
+      req.params.id, (error, meal) => {
         if (error) {
           return next(error);
         } else {
           res.status(200).json({
-            question
+            meal
           });
         }
       });
@@ -268,26 +268,26 @@ const searchPipeline = (search) => [
   {
     $project: {
       _id: 1,
-      parentCategory: 1,
+      parentMenu: 1,
       title: 1,
     },
   },
   {
     $lookup: {
-      from: "categories",
-      localField: "parentCategory",
+      from: "menus",
+      localField: "parentMenu",
       foreignField: "_id",
       pipeline: [
         {
           $project: {
             _id: 1,
-            categoryParentCategory:
-              "$parentCategory",
-            categoryTitle: "$title",
+            menuParentMenu:
+              "$parentMenu",
+            menuTitle: "$title",
           },
         },
       ],
-      as: "fromCategories",
+      as: "fromMenus",
     },
   },
   {
@@ -295,7 +295,7 @@ const searchPipeline = (search) => [
       newRoot: {
         $mergeObjects: [
           {
-            $arrayElemAt: ["$fromCategories", 0],
+            $arrayElemAt: ["$fromMenus", 0],
           },
           "$$ROOT",
         ],
@@ -306,26 +306,26 @@ const searchPipeline = (search) => [
     $project: {
       _id: 1,
       title: 1,
-      categoryTitle: 1,
-      categoryParentCategory: 1,
-      parentCategory: 1,
+      menuTitle: 1,
+      menuParentMenu: 1,
+      parentMenu: 1,
     },
   },
   {
     $lookup: {
-      from: "categories",
-      localField: "categoryParentCategory",
+      from: "menus",
+      localField: "menuParentMenu",
       foreignField: "_id",
       pipeline: [
         {
           $project: {
             _id: 1,
-            categoryParentTitle: "$title",
-            parentCategoryUp: "$parentCategory"
+            menuParentTitle: "$title",
+            parentMenuUp: "$parentMenu"
           },
         },
       ],
-      as: "fromCategories2",
+      as: "fromMenus2",
     },
   },
   {
@@ -337,19 +337,19 @@ const searchPipeline = (search) => [
               {
                 $gt: [
                   {
-                    $size: "$fromCategories2",
+                    $size: "$fromMenus2",
                   },
                   0,
                 ],
               },
               {
                 $arrayElemAt: [
-                  "$fromCategories2",
+                  "$fromMenus2",
                   0,
                 ],
               },
               {
-                categoryParentTitle: "",
+                menuParentTitle: "",
               },
             ],
           },
@@ -360,21 +360,21 @@ const searchPipeline = (search) => [
   },
   {
     $project: {
-      fromCategories2: 0,
-      categoryParentCategory: 0
+      fromMenus2: 0,
+      menuParentMenu: 0
     },
   },
   {
     $group: {
-      _id: "$parentCategory",
+      _id: "$parentMenu",
       //
-      questions: {
+      meals: {
         $push: {
           _id: "$_id",
-          categoryParentTitle: "$categoryParentTitle",
-          categoryTitle: "$categoryTitle",
+          menuParentTitle: "$menuParentTitle",
+          menuTitle: "$menuTitle",
           title: "$title",
-          parentCategoryUp: "$parentCategoryUp"
+          parentMenuUp: "$parentMenuUp"
         },
       },
     },
@@ -390,33 +390,33 @@ const catPipeline = (_id) => [
   {
     $project: {
       _id: 1,
-      parentCategory: 1,
+      parentMenu: 1,
       title: 1,
     }
   }]
 ]
 
 // const dajCat = async (_id) => {
-//   return await categorySchema.findOne({ _id }, { title: 1, parentCategory: 1 }).exec();
+//   return await menuSchema.findOne({ _id }, { title: 1, parentMenu: 1 }).exec();
 // }
-// const cat = await categorySchema.aggregate(catPipeline('641948164a219abbd99c4387'));
+// const cat = await menuSchema.aggregate(catPipeline('641948164a219abbd99c4387'));
 
 /*
 // TODO Pay MongoDB Atlas Database to have autocomplete search
 
-router.get('/get-questions/:search', async (req, res, next) => {
-  const data = await questionSchema.aggregate(searchPipeline(req.params.search));
+router.get('/get-meals/:search', async (req, res, next) => {
+  const data = await mealSchema.aggregate(searchPipeline(req.params.search));
   const groups = data.map(group => {
     console.log('group -> ', group)
-    let { categoryParentTitle, categoryTitle, parentCategoryUp } = group.questions[0];
+    let { menuParentTitle, menuTitle, parentMenuUp } = group.meals[0];
     return {
       _id: group._id,
-      parentCategoryUp,
-      categoryParentTitle,
-      categoryTitle,
-      questions: group.questions.map(q => ({
+      parentMenuUp,
+      menuParentTitle,
+      menuTitle,
+      meals: group.meals.map(q => ({
         _id: q._id,
-        parentCategory: group._id,
+        parentMenu: group._id,
         title: q.title
       }))
     }
@@ -426,15 +426,15 @@ router.get('/get-questions/:search', async (req, res, next) => {
 */
 function groupBy(objectArray) {
   return objectArray.reduce((acc, obj) => {
-    const key = obj.parentCategory;
+    const key = obj.parentMenu;
     const currGroup = acc[key] ?? [];
     return { ...acc, [key]: [...currGroup, obj] };
   }, {});
 }
 
-router.get('/get-questions/:search', async (req, res, next) => {
+router.get('/get-meals/:search', async (req, res, next) => {
 
-  const data = await questionSchema.find({
+  const data = await mealSchema.find({
     title: {
       $regex: req.params.search,
       $options: 'im'
@@ -442,7 +442,7 @@ router.get('/get-questions/:search', async (req, res, next) => {
   }, {
     _id: 1,
     title: 1,
-    parentCategory: 1
+    parentMenu: 1
   });
 
   const grouped = groupBy(data);
@@ -450,17 +450,17 @@ router.get('/get-questions/:search', async (req, res, next) => {
   const groups = []
 
   try {
-    for (const [categoryId, questions] of Object.entries(grouped)) {
-      const category = await categorySchema.findById(categoryId);
-      let parentCategoryUp = '';
-      let categoryParentTitle = '';
+    for (const [menuId, meals] of Object.entries(grouped)) {
+      const menu = await menuSchema.findById(menuId);
+      let parentMenuUp = '';
+      let menuParentTitle = '';
 
-      if (category.parentCategory) {
+      if (menu.parentMenu) {
         try {
-          const parentCategory = await categorySchema.findById(category.parentCategory);
-          categoryParentTitle = parentCategory.title;
-          if (parentCategory.parentCategory) {
-            parentCategoryUp = ' ... / '
+          const parentMenu = await menuSchema.findById(menu.parentMenu);
+          menuParentTitle = parentMenu.title;
+          if (parentMenu.parentMenu) {
+            parentMenuUp = ' ... / '
           }
         }
         catch (err) {
@@ -468,14 +468,14 @@ router.get('/get-questions/:search', async (req, res, next) => {
         }
       }
       groups.push({
-        _id: categoryId,
-        parentCategoryUp,
-        categoryParentTitle,
-        categoryTitle: category.title,
-        questions: questions.map(q => ({
+        _id: menuId,
+        parentMenuUp,
+        menuParentTitle,
+        menuTitle: menu.title,
+        meals: meals.map(q => ({
           _id: q._id,
           title: q.title,
-          parentCategory: categoryId
+          parentMenu: menuId
         }))
       })
     }
@@ -486,15 +486,15 @@ router.get('/get-questions/:search', async (req, res, next) => {
 
   //   const groups = data.map(group => {
   //     console.log('group -> ', group)
-  //     let { categoryParentTitle, categoryTitle, parentCategoryUp } = group.questions[0];
+  //     let { menuParentTitle, menuTitle, parentMenuUp } = group.meals[0];
   //     return {
   //       _id: group._id,
-  //       parentCategoryUp,
-  //       categoryParentTitle,
-  //       categoryTitle,
-  //       questions: group.questions.map(q => ({
+  //       parentMenuUp,
+  //       menuParentTitle,
+  //       menuTitle,
+  //       meals: group.meals.map(q => ({
   //         _id: q._id,
-  //         parentCategory: group._id,
+  //         parentMenu: group._id,
   //         title: q.title
   //       }))
   //     }

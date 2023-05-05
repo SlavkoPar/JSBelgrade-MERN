@@ -21,8 +21,14 @@ let questionSchema = new Schema({
         type: ObjectId,
         index: { unique: false }
     },
-	source: 0,
-	status: 0,
+	source: {
+        type: Number,
+        required: true
+    },
+	status: {
+        type: Number,
+        required: true
+    },
     created: {
         type: DateBy,
         required: true

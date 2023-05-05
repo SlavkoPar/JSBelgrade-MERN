@@ -21,8 +21,14 @@ let mealSchema = new Schema({
         type: ObjectId,
         index: { unique: false }
     },
-	source: 0,
-	status: 0,
+	source: {
+        type: Number,
+        required: true
+    },
+	status: {
+        type: Number,
+        required: true
+    },
     created: {
         type: DateBy,
         required: true
@@ -37,4 +43,4 @@ let mealSchema = new Schema({
 mealSchema.index({ wsId: 1, title: 1 }, { unique: true } );
 mealSchema.index({ title: "text" }); 
 
-module.exports = mongoose.model('Question', mealSchema)
+module.exports = mongoose.model('Meal', mealSchema)
