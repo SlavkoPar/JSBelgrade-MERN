@@ -36,8 +36,8 @@ Generator will generate code for CRUD operations of two related entites: 'parent
 based on relation **categories** -> **questions**.\
 It is especially useful for Admin modules, where app sometimes have many tables to maintain.
   *  NodeJS script copies **categories** folder to **menus** folder.
-  *  After that, it replaces names of files and names of variables used in code.
-  *  For example **CategoryRow** is replaced to **MenuRow**, and so on.
+  *  It replaces names of files.
+  *  It replaces names of variables used in code, for example **CategoryRow** to **MenuRow**.
   *  Generator creates MongoDB models: /models/Menu.js and /models/Meal.js
   *  Generator creates Express routes: /routes/menu.route.js and /routes/meal.route.js
 Next version of Generator will be much more sofisticated.
