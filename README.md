@@ -34,10 +34,10 @@ We can concurrently **debug** Node and React
 
 Generator will generate code for CRUD opertions of two related entites: 'parent table' -> 'child table',\
 based on relation 'categories' -> 'questions'.\
-It is especially useful foR Amdin modules, where appW sometimes have many tables to maintain.
+It is especially useful for Admin modules, where app sometimes have many tables to maintain.
   *  NodeJS script copies 'categories' folder to 'menus' folder.
   *  After that, it replaces names of files and names of variables used in code.
-For example 'CategoryRow' is replaced to 'MenuRow', and so on.
+  *  For example 'CategoryRow' is replaced to 'MenuRow', and so on.
   *  Generator also creates MongoDB models: /models/Menu.js and /models/Meal.js
   *  and Express routes: /routes/menu.route.js and /routes/meal.route.js
 Next version of Generator will be much sofisticated.
