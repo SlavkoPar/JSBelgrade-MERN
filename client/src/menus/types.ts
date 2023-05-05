@@ -61,7 +61,6 @@ export interface IMenusState {
 	menus: IMenu[],
 	currentMenuExpanded: string,
 	lastMenuExpanded: string | null;
-	menuId_mealId_done: string | null;
 	parentMenus: IParentMenus;
 	error?: AxiosError;
 }
@@ -121,7 +120,7 @@ export enum ActionTypes {
 
 	CLOSE_MENU_FORM = 'CLOSE_MENU_FORM',
 	CANCEL_MENU_FORM = 'CANCEL_MENU_FORM',
-	TOGGLE_EXPANDED = 'TOGGLE_EXPANDED',
+	SET_EXPANDED = 'SET_EXPANDED',
 	SET_PARENT_MENUS = "SET_PARENT_MENUS",
 
 	// meals
@@ -177,7 +176,7 @@ export type MenusPayload = {
 
 	[ActionTypes.CANCEL_MENU_FORM]: undefined;
 
-	[ActionTypes.TOGGLE_EXPANDED]: {
+	[ActionTypes.SET_EXPANDED]: {
 		_id: Types.ObjectId;
 		expanding: boolean;
 	}

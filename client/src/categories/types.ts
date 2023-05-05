@@ -61,7 +61,6 @@ export interface ICategoriesState {
 	categories: ICategory[],
 	currentCategoryExpanded: string,
 	lastCategoryExpanded: string | null;
-	categoryId_questionId_done: string | null;
 	parentCategories: IParentCategories;
 	error?: AxiosError;
 }
@@ -121,7 +120,7 @@ export enum ActionTypes {
 
 	CLOSE_CATEGORY_FORM = 'CLOSE_CATEGORY_FORM',
 	CANCEL_CATEGORY_FORM = 'CANCEL_CATEGORY_FORM',
-	TOGGLE_EXPANDED = 'TOGGLE_EXPANDED',
+	SET_EXPANDED = 'SET_EXPANDED',
 	SET_PARENT_CATEGORIES = "SET_PARENT_CATEGORIES",
 
 	// questions
@@ -177,7 +176,7 @@ export type CategoriesPayload = {
 
 	[ActionTypes.CANCEL_CATEGORY_FORM]: undefined;
 
-	[ActionTypes.TOGGLE_EXPANDED]: {
+	[ActionTypes.SET_EXPANDED]: {
 		_id: Types.ObjectId;
 		expanding: boolean;
 	}

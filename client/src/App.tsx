@@ -67,8 +67,8 @@ function App() {
           <div className="wrapper">
             <Routes>
               <Route path="/" element={!isAuthenticated ? <About /> : <Categories />} />
-              <Route path="/categories/:categoryId_questionId" element={<Categories />} />
-              <Route path="/menus/:menuId_mealId" element={<Menus />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/menus" element={<Menus />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/sign-in" element={<LoginForm initialValues={formInitialValues} />} />
               <Route path="/about" element={<About />} />

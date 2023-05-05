@@ -80,13 +80,13 @@ export function Navigation(props: INavigation) {
             >
 
               {isAuthenticated &&
-                <NavLink to="/categories/null" className="nav-link">
+                <NavLink to="/categories" className="nav-link">
                   <FontAwesomeIcon icon={faQuestion} color='lightblue' />{' '}Questions
                 </NavLink>
               }
 
               {isAuthenticated &&
-                <NavLink to="/menus/null" className="nav-link">
+                <NavLink to="/menus" className="nav-link">
                   <FontAwesomeIcon icon={faThumbsUp} color='lightblue' />{' '}Meals
                 </NavLink>
               }

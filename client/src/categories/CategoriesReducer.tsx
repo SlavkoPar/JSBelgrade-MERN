@@ -34,7 +34,6 @@ export const initialState: ICategoriesState = {
   categories: [],
   currentCategoryExpanded: '',
   lastCategoryExpanded: null,
-  categoryId_questionId_done: null,
   parentCategories: {
     categoryId: null,
     questionId: null,
@@ -82,7 +81,7 @@ export const initialCategoriesState: ICategoriesState = initialStateFromLocalSto
 export const CategoriesReducer: Reducer<ICategoriesState, CategoriesActions> = (state, action) => {
   const newState = reducer(state, action);
   const aTypesToStore = [
-    ActionTypes.TOGGLE_EXPANDED
+    ActionTypes.SET_EXPANDED
   ];
   if (aTypesToStore.includes(action.type)) {
     const value = JSON.stringify({
@@ -109,8 +108,7 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       return {
         ...state,
         parentCategories,
-        lastCategoryExpanded: null,
-        categoryId_questionId_done: `${parentCategories.categoryId}_${parentCategories.questionId}`,
+        lastCategoryExpanded: null
       };
     }
 
@@ -196,7 +194,7 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       return {
         ...state,
         categories: state.categories.map(c => c._id === category._id
-          ? { ...category, inViewing: true } // category.questions are inside of object
+          ? { ...category, inViewing: true, isExpanded: c.isExpanded } // category.questions are inside of object
           : { ...c, inViewing: false }
         ),
         mode: Mode.ViewingCategory,
@@ -209,7 +207,7 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       return {
         ...state,
         categories: state.categories.map(c => c._id === category._id
-          ? { ...category, inEditing: true }
+          ? { ...category, inEditing: true, isExpanded: c.isExpanded }
           : c
         ),
         mode: Mode.EditingCategory,
@@ -238,7 +236,7 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       };
     }
 
-    case ActionTypes.TOGGLE_EXPANDED: {
+    case ActionTypes.SET_EXPANDED: {
       const { _id, expanding } = action.payload;
       return {
         ...state,

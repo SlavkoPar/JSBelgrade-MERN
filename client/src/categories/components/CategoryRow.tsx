@@ -34,7 +34,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
 
     const expand = (_id: Types.ObjectId) => {
         const collapse = isExpanded;
-        dispatch({ type: ActionTypes.TOGGLE_EXPANDED, payload: { _id, expanding: !isExpanded } });
+        dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id, expanding: !isExpanded } });
         if (collapse)
             dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { category } })
     }
@@ -107,7 +107,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
                                 }
                             })
                             if (!isExpanded)
-                                dispatch({ type: ActionTypes.TOGGLE_EXPANDED, payload: { _id: _id!, expanding: true } });
+                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
                         }}
                     />
                 </Button>
@@ -120,7 +120,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
                             const categoryInfo: ICategoryInfo = { _id: category._id!, level: category.level }
                             dispatch({ type: ActionTypes.ADD_QUESTION, payload: { categoryInfo } })
                             if (!isExpanded)
-                                dispatch({ type: ActionTypes.TOGGLE_EXPANDED, payload: { _id: _id!, expanding: true } });
+                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
                         }}
                     />
                     <FontAwesomeIcon icon={faQuestion} size='lg' style={{ marginLeft: '-5px' }} />

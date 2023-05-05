@@ -34,7 +34,7 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
 
     const expand = (_id: Types.ObjectId) => {
         const collapse = isExpanded;
-        dispatch({ type: ActionTypes.TOGGLE_EXPANDED, payload: { _id, expanding: !isExpanded } });
+        dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id, expanding: !isExpanded } });
         if (collapse)
             dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { menu } })
     }
@@ -107,7 +107,7 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
                                 }
                             })
                             if (!isExpanded)
-                                dispatch({ type: ActionTypes.TOGGLE_EXPANDED, payload: { _id: _id!, expanding: true } });
+                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
                         }}
                     />
                 </Button>
@@ -120,7 +120,7 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
                             const menuInfo: IMenuInfo = { _id: menu._id!, level: menu.level }
                             dispatch({ type: ActionTypes.ADD_MEAL, payload: { menuInfo } })
                             if (!isExpanded)
-                                dispatch({ type: ActionTypes.TOGGLE_EXPANDED, payload: { _id: _id!, expanding: true } });
+                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
                         }}
                     />
                     <FontAwesomeIcon icon={faThumbsUp} size='lg' style={{ marginLeft: '-5px' }} />

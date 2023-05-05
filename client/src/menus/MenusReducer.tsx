@@ -34,7 +34,6 @@ export const initialState: IMenusState = {
   menus: [],
   currentMenuExpanded: '',
   lastMenuExpanded: null,
-  menuId_mealId_done: null,
   parentMenus: {
     menuId: null,
     mealId: null,
@@ -82,7 +81,7 @@ export const initialMenusState: IMenusState = initialStateFromLocalStorage
 export const MenusReducer: Reducer<IMenusState, MenusActions> = (state, action) => {
   const newState = reducer(state, action);
   const aTypesToStore = [
-    ActionTypes.TOGGLE_EXPANDED
+    ActionTypes.SET_EXPANDED
   ];
   if (aTypesToStore.includes(action.type)) {
     const value = JSON.stringify({
@@ -109,8 +108,7 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       return {
         ...state,
         parentMenus,
-        lastMenuExpanded: null,
-        menuId_mealId_done: `${parentMenus.menuId}_${parentMenus.mealId}`,
+        lastMenuExpanded: null
       };
     }
 
@@ -196,7 +194,7 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       return {
         ...state,
         menus: state.menus.map(c => c._id === menu._id
-          ? { ...menu, inViewing: true } // menu.meals are inside of object
+          ? { ...menu, inViewing: true, isExpanded: c.isExpanded } // menu.meals are inside of object
           : { ...c, inViewing: false }
         ),
         mode: Mode.ViewingMenu,
@@ -209,7 +207,7 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       return {
         ...state,
         menus: state.menus.map(c => c._id === menu._id
-          ? { ...menu, inEditing: true }
+          ? { ...menu, inEditing: true, isExpanded: c.isExpanded }
           : c
         ),
         mode: Mode.EditingMenu,
@@ -238,7 +236,7 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       };
     }
 
-    case ActionTypes.TOGGLE_EXPANDED: {
+    case ActionTypes.SET_EXPANDED: {
       const { _id, expanding } = action.payload;
       return {
         ...state,
