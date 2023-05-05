@@ -30,7 +30,7 @@ To make concurrently work with React and Node, we added scripts in **package.jso
 We can concurrently **debug** Node and React
 
 ### Generator
-#### `yarn run generate-menu-meal`
+##### `yarn run generate-menu-meal`
 
 Generator will generate code for CRUD operations of two related entites: 'parent table' -> 'child table',\
 based on relation **categories** -> **questions**.\
@@ -40,7 +40,7 @@ It is especially useful for Admin modules, where app sometimes have many tables 
   *  It replaces names of variables used in code, for example **CategoryRow** to **MenuRow**.
   *  Generator creates MongoDB models: /models/Menu.js and /models/Meal.js
   *  Generator creates Express routes: /routes/menu.route.js and /routes/meal.route.js
-Next version of Generator will be much more sofisticated.
+  *  Next version of Generator will be much more sofisticated.
 
 ### `yarn build`
 
