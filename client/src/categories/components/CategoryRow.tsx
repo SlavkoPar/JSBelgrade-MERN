@@ -66,7 +66,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
             <Button
                 variant='link'
                 size="sm"
-                className="py-0 mx-0 text-decoration-none"
+                className={`py-0 mx-0 text-decoration-none ${(inViewing||inEditing) ? 'fw-bold':''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectCategory(_id!)}
                 disabled={alreadyAdding}

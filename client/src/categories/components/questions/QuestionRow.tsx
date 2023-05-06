@@ -55,7 +55,7 @@ const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, cate
             <Button
                 variant='link'
                 size="sm"
-                className="py-0 mx-0 text-decoration-none text-secondary"
+                className={`py-0 mx-0 text-decoration-none text-secondary ${(inViewing||inEditing) ? 'fw-bold':''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectQuestion(_id!)}
                 disabled={alreadyAdding}

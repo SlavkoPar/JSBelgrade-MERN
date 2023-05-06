@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Support-Knowledge application
 
-Real application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) which uses Category/Question template.
+Real application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) that uses Category/Question template.
 
 ## Available Scripts
 
@@ -28,6 +28,12 @@ To make concurrently work with React and Node, we added scripts in **package.jso
 &nbsp;&nbsp;&nbsp;&nbsp;"dev": "concurrently \"npm run server\" \"npm run client\""\
 &nbsp;&nbsp;}\
 We can concurrently **debug** Node and React
+
+### Try this Application at you local machine
+First, clone this repository.
+Install MongoDB at your local machine, or create free cloud MongoDB database.
+After that enter connection string into the **.env** like I did, for example:
+**MY_MONGO_URI='mongodb://127.0.0.1:27017/JSBelgrade-MERN'**
 
 ### Generator
 ##### `yarn run generate-menu-meal`
