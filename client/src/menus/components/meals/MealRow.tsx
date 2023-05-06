@@ -55,7 +55,7 @@ const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | 
             <Button
                 variant='link'
                 size="sm"
-                className="py-0 mx-0 text-decoration-none text-secondary"
+                className={`py-0 mx-0 text-decoration-none text-secondary ${(inViewing||inEditing) ? 'fw-bold':''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectMeal(_id!)}
                 disabled={alreadyAdding}
