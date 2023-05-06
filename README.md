@@ -29,11 +29,11 @@ To make concurrently work with React and Node, we added scripts in **package.jso
 &nbsp;&nbsp;}\
 We can concurrently **debug** Node and React
 
-### Try this Application at you local machine
-First, clone this repository.
-Install MongoDB at your local machine, or create free cloud MongoDB database.
-After that enter connection string into the **.env** like I did, for example:
-**MY_MONGO_URI='mongodb://127.0.0.1:27017/JSBelgrade-MERN'**
+### Try this Application at your local machine
+  *  First, clone this repository.
+  *  Install MongoDB at your local machine, or create free cloud MongoDB database.
+  *  Enter connection string into the **.env** like I did, for example:
+     **MY_MONGO_URI='mongodb://127.0.0.1:27017/JSBelgrade-MERN'**
 
 ### Generator
 ##### `yarn run generate-menu-meal`
