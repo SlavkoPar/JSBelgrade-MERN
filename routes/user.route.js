@@ -11,7 +11,7 @@ let Group = require("../models/Group");
 const ObjectId = mongoose.Types.ObjectId
 
 router.post("/register-user", async (req, res, next) => {
-    let { wsId, wsName, userName, password, color, email, created, modified } = req.body;
+    let { wsId, wsName, userName, password, color, email } = req.body;
     try {
         let user = await User.findOne({ email });
         if (user) {
@@ -54,7 +54,19 @@ router.post("/register-user", async (req, res, next) => {
             return next(new Error(`Group ${groupName} doesn't exist. Execute 'yarn run seeds'`));
         }
         const parentGroup = group._id;
-        user = await User.create({ wsId, userName, email, password, superUser: false, parentGroup, role, color, confirmed: false, created, modified });
+        user = await User.create({ 
+            wsId,
+            userName,
+            email,
+            password,
+            superUser: false,
+            parentGroup,
+            role,
+            color,
+            confirmed: false,
+            created,
+            modified: null
+        });
         await Seed.seedCategories(user.wsId, user._id);
         res.json({ user, wsName }); // status(201)
     }
