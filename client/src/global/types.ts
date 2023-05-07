@@ -1,5 +1,4 @@
 // Define the Global State
-import { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 import { IOption } from 'common/types';
 
@@ -64,7 +63,7 @@ export interface IGlobalState {
 	variant: string,
 	bg: string,
 	loading: boolean;
-	error?: AxiosError;
+	error?: Error;
 	kindOptions: IOption<string>[],
 }
 
@@ -118,7 +117,7 @@ export type GlobalPayload = {
 	[GlobalActionTypes.UN_AUTHENTICATE]: undefined;
 
     [GlobalActionTypes.SET_ERROR]: {
-        error: AxiosError;
+        error: Error;
     };
 
     [GlobalActionTypes.LIGHT_MODE]: undefined;

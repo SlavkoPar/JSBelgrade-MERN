@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer, Dispatch, useCallback } from "react";
-import { Types } from 'mongoose';
 import axios, { AxiosError } from "axios";
 
 import { IUser, IGlobalContext, ILoginUser, ROLES, GlobalActionTypes } from 'global/types'
@@ -66,17 +65,17 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
         console.log('Status is not 200', status)
         dispatch({
           type: GlobalActionTypes.SET_ERROR, payload: {
-            error: new AxiosError('Status is not 200 status: ' + status)
+            error: new Error('Status is not 200 status: ' + status)
           }
         })
       }
     }
-    catch (error) {
-      console.log(error);
+    catch (err: any | AxiosError) {
+      console.log(err);
       dispatch({
         type: GlobalActionTypes.SET_ERROR,
         payload: {
-          error: new AxiosError('signIn error') // new AxiosError(error?.response?.data, error)
+          error: new Error(axios.isAxiosError(err) ? err.response?.data : err)
         }
       });
     }
@@ -99,17 +98,17 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
         console.log('Status is not 200', status)
         dispatch({
           type: GlobalActionTypes.SET_ERROR, payload: {
-            error: new AxiosError('Status is not 200 status: ' + status)
+            error: new Error('Status is not 200 status: ' + status)
           }
         })
       }
     }
-    catch (error) {
-      console.log(error);
+    catch (err: any | AxiosError) {
+      console.log(err);
       dispatch({
         type: GlobalActionTypes.SET_ERROR,
         payload: {
-          error: new AxiosError('signIn error') // new AxiosError(error?.response?.data, error)
+          error: new Error(axios.isAxiosError(err) ? err.response?.data : err)
         }
       });
       return false;
