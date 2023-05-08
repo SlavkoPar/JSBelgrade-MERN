@@ -15,7 +15,7 @@ import EditQuestion from "categories/components/questions/EditQuestion";
 import ViewQuestion from "categories/components/questions/ViewQuestion";
 
 const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, categoryInAdding: boolean | undefined }) => {
-    const { _id, parentCategory, level, title, inViewing, inEditing, inAdding} = question;
+    const { _id, parentCategory, level, title, inViewing, inEditing, inAdding } = question;
 
     const { canEdit, isDarkMode, variant, bg } = useGlobalState();
 
@@ -55,7 +55,7 @@ const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, cate
             <Button
                 variant='link'
                 size="sm"
-                className={`py-0 mx-0 text-decoration-none text-secondary ${(inViewing||inEditing) ? 'fw-bold':''}`}
+                className={`py-0 mx-0 text-decoration-none text-secondary ${(inViewing || inEditing) ? 'fw-bold' : ''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectQuestion(_id!)}
                 disabled={alreadyAdding}
@@ -81,13 +81,17 @@ const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, cate
             }
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
-                <Button variant='link' size="sm" className="ms-2 py-0 mx-1 text-secondary" title="Add Question" >
-                    <FontAwesomeIcon icon={faPlus} size='lg'
-                        onClick={() => {
-                            const categoryInfo: ICategoryInfo = { _id: parentCategory, level }
-                            dispatch({ type: ActionTypes.ADD_QUESTION, payload: { categoryInfo } })
-                        }}
-                    />
+                <Button
+                    variant='link'
+                    size="sm"
+                    className="ms-2 py-0 mx-1 text-secondary"
+                    title="Add Question"
+                    onClick={() => {
+                        const categoryInfo: ICategoryInfo = { _id: parentCategory, level }
+                        dispatch({ type: ActionTypes.ADD_QUESTION, payload: { categoryInfo } })
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} size='lg' />
                     <FontAwesomeIcon icon={faQuestion} size='lg' style={{ marginLeft: '-5px' }} />
                 </Button>
             }

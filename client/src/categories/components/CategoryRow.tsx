@@ -66,7 +66,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
             <Button
                 variant='link'
                 size="sm"
-                className={`py-0 mx-0 text-decoration-none ${(inViewing||inEditing) ? 'fw-bold':''}`}
+                className={`py-0 mx-0 text-decoration-none ${(inViewing || inEditing) ? 'fw-bold' : ''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectCategory(_id!)}
                 disabled={alreadyAdding}
@@ -74,7 +74,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
                 {title}
             </Button>
 
-            <Badge pill bg="secondary" className={numOfQuestions===0?'d-none':'d-inline'}>
+            <Badge pill bg="secondary" className={numOfQuestions === 0 ? 'd-none' : 'd-inline'}>
                 {numOfQuestions}<FontAwesomeIcon icon={faQuestion} size='sm' />
             </Badge>
 
@@ -96,33 +96,41 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
             }
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
-                <Button variant='link' size="sm" className="ms-2 py-0 mx-1 text-primary" title="Add SubCategory" >
-                    <FontAwesomeIcon icon={faPlus} size='lg'
-                        onClick={() => {
-                            dispatch({
-                                type: ActionTypes.ADD_SUB_CATEGORY,
-                                payload: {
-                                    parentCategory: category._id,
-                                    level: category.level
-                                }
-                            })
-                            if (!isExpanded)
-                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
-                        }}
-                    />
+                <Button
+                    variant='link'
+                    size="sm"
+                    className="ms-2 py-0 mx-1 text-primary"
+                    title="Add SubCategory"
+                    onClick={() => {
+                        dispatch({
+                            type: ActionTypes.ADD_SUB_CATEGORY,
+                            payload: {
+                                parentCategory: category._id,
+                                level: category.level
+                            }
+                        })
+                        if (!isExpanded)
+                            dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} size='lg' />
                 </Button>
             }
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
-                <Button variant='link' size="sm" className="ms-2 py-0 mx-1 text-secondary" title="Add Question" >
-                    <FontAwesomeIcon icon={faPlus} size='lg'
-                        onClick={() => {
-                            const categoryInfo: ICategoryInfo = { _id: category._id!, level: category.level }
-                            dispatch({ type: ActionTypes.ADD_QUESTION, payload: { categoryInfo } })
-                            if (!isExpanded)
-                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
-                        }}
-                    />
+                <Button
+                    variant='link'
+                    size="sm"
+                    className="ms-2 py-0 mx-1 text-secondary"
+                    title="Add Question"
+                    onClick={() => {
+                        const categoryInfo: ICategoryInfo = { _id: category._id!, level: category.level }
+                        dispatch({ type: ActionTypes.ADD_QUESTION, payload: { categoryInfo } })
+                        if (!isExpanded)
+                            dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} size='lg' />
                     <FontAwesomeIcon icon={faQuestion} size='lg' style={{ marginLeft: '-5px' }} />
                 </Button>
             }
