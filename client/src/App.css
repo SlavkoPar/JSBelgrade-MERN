@@ -1,5 +1,6 @@
 .App {
-  text-align: left; /*center;*/
+  text-align: left;
+  /*center;*/
 }
 
 .App-logo {
@@ -32,6 +33,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -51,8 +53,8 @@ body h3 {
 }
 
 .form-wrapper {
-   border-width: 1px solid silver;
-   border-radius: 5px
+  border-width: 1px solid silver;
+  border-radius: 5px
 }
 
 /* .table-wrapper {
@@ -100,8 +102,15 @@ input[type=number] {
   align-items: 'center';
 }
 
-.fieldsets { 
+.fieldsets {
   border: '1px solid silver';
   border-radius: '5px';
   padding: '5px'
+}
+
+/* nav a:hover { */
+@media(hover: hover) and (pointer: fine) {
+  a:hover {
+    background: transparent;
+  }
 }

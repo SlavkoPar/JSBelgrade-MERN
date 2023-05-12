@@ -13,7 +13,7 @@ const CategoryList = ({ title, parentCategory, level }: IParentInfo) => {
 
     const mySubCategories = state.categories.filter(c => c.parentCategory === parentCategory);
     return (
-        <div className={level>1?'ms-4':''}>
+        <div className={level>1?'ms-2':''}>
             <>
                 <ListGroup as="ul" variant='dark' className="mb-0">
                     {mySubCategories.map(category => 

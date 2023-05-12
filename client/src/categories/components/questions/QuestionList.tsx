@@ -35,7 +35,7 @@ const QuestionList = ({ title, parentCategory, level }: IParentInfo) => {
     return (
         <div className={`ms-0`}>
             <>
-                <ListGroup as="ul" variant='dark' className={level > 1 ? 'mb-0 ms-4' : 'mb-0'}>
+                <ListGroup as="ul" variant='dark' className={level > 1 ? 'mb-0 ms-2' : 'mb-0'}>
                     {questions.map((question: IQuestion) =>
                         <QuestionRow
                             question={question}

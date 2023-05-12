@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 
-import isMobile from 'ismobilejs'
-const isMob = isMobile(navigator.userAgent).any;
+// import isMobile from 'ismobilejs'
+const isMob = false; // isMobile(navigator.userAgent).any;
 
 interface IHoverProps {
 	isHovered: boolean;
