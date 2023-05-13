@@ -1,19 +1,25 @@
 import { useState } from "react";
-import { useCategoryContext } from 'categories/CategoryProvider'
+import { useCategoryContext, useCategoryDispatch } from 'categories/CategoryProvider'
 import { useGlobalState } from 'global/GlobalProvider'
 
 import QuestionForm from "categories/components/questions/QuestionForm";
-import { FormMode, IQuestion } from "../../types";
+import { ActionTypes, FormMode, IQuestion } from "categories/types";
 
-// const Add = ({ category, question, inLine } : { category: ICategory, question: IQuestion, inLine: boolean}) => {
-const AddQuestion = ({ question, inLine } : { question: IQuestion, inLine: boolean }) => { //{ category }: { category: ICategory }) => {
+interface IProps {
+    question: IQuestion,
+    inLine: boolean,
+    showCloseButton: boolean;
+}
+
+const AddQuestion = ({ question, inLine }: IProps) => {
     const globalState = useGlobalState();
     const { userId, wsId } = globalState.authUser;
 
-    const { createQuestion } = useCategoryContext();
+    const dispatch = useCategoryDispatch();
+    const { createQuestion, getAllParentCategories } = useCategoryContext();
     const [formValues] = useState(question)
 
-    const submitForm = (questionObject: IQuestion) => {
+    const submitForm = async (questionObject: IQuestion) => {
         delete questionObject.inAdding;
         delete questionObject._id;
         const object: IQuestion = {
@@ -27,7 +33,12 @@ const AddQuestion = ({ question, inLine } : { question: IQuestion, inLine: boole
                 }
             }
         }
-        createQuestion(object);
+        const question = await createQuestion(object);
+        // on real app we can add question from modal dlg, without knowing category
+        // if (question) {
+        //     dispatch({ type: ActionTypes.CLEAN_TREE, payload: { _id: question.parentCategory } })
+        //     await getAllParentCategories(question.parentCategory, question._id);
+        // }
     }
 
     return (

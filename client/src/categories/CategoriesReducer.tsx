@@ -138,6 +138,13 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
         }
     }
 
+    case ActionTypes.CLEAN_TREE: {
+      return {
+        ...state,
+        categories: []
+      }
+  }
+
     case ActionTypes.SET_ERROR: {
       const { error } = action.payload;
       return { ...state, error, loading: false };

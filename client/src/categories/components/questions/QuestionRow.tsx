@@ -35,8 +35,12 @@ const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, cate
 
     const onSelectQuestion = (_id: Types.ObjectId) => {
         // Load data from server and reinitialize question
-        viewQuestion(_id);
+        if (canEdit)
+            editQuestion(_id);
+        else 
+            viewQuestion(_id);
     }
+
     const [hoverRef, hoverProps] = useHover();
 
     const Row1 =
@@ -63,14 +67,14 @@ const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, cate
                 {title}
             </Button>
 
-            {canEdit && !alreadyAdding && hoverProps.isHovered &&
+            {/* {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 px-1 text-secondary"
                     //onClick={() => { dispatch({ type: ActionTypes.EDIT, question }) }}>
                     onClick={() => edit(_id!)}
                 >
                     <FontAwesomeIcon icon={faEdit} size='lg' />
                 </Button>
-            }
+            } */}
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 mx-1 text-secondary"
@@ -104,7 +108,7 @@ const QuestionRow = ({ question, categoryInAdding }: { question: IQuestion, cate
             as="li"
         >
             {inAdding && categoryInAdding && state.mode === Mode.AddingQuestion ? (
-                <AddQuestion question={question} inLine={true} />
+                <AddQuestion question={question} inLine={true}  showCloseButton={true} />
             )
                 : ((inEditing && state.mode === Mode.EditingQuestion) ||
                     (inViewing && state.mode === Mode.ViewingQuestion)) ? (

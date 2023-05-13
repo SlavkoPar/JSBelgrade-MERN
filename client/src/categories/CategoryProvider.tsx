@@ -166,37 +166,48 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   // Questions
   //
 
-
   const getCategoryQuestions = useCallback(({ parentCategory: _id, level }: IParentInfo) => {
     getCategory(_id!, ActionTypes.SET_CATEGORY)
     //(state.mode === Mode.AddingCategory || state.mode === Mode.AddingQuestion) 
   }, []);
 
   
-  const createQuestion = useCallback((question: IQuestion) => {
-    // dispatch({ type: ActionTypes.SET_LOADING })
-    axios
-      .post(`/api/questions/create-question`, question)
-      .then(({ status, data }) => {
-        if (status === 200) {
-          console.log('Question successfully created')
-          dispatch({ type: ActionTypes.SET_QUESTION, payload: { question: data } }); // TODO check setting inViewing, inEditing, inAdding to false
-          // TODO setting inAdding: false will close the form
-        }
-        else {
-          console.log('Status is not 200', status)
-          dispatch({
-            type: ActionTypes.SET_ERROR,
-            payload: {
-              error: new AxiosError('Status is not 200 status:' + status)
-            }
-          })
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({ type: ActionTypes.SET_ERROR, payload: error });
-      });
+  const createQuestion = useCallback(async (question: IQuestion): Promise<any> => {
+    try {
+      const url = '/api/questions/create-question'
+      const res = await axios.post(url, question)
+      const { status, data } = res;
+      if (status === 200) {
+        console.log("Question successfully created");
+        // TODO check setting inViewing, inEditing, inAdding to false
+        dispatch({ type: ActionTypes.SET_QUESTION, payload: { question: data } });
+        return data;
+      }
+      else {
+        console.log('Status is not 200', status)
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError('Status is not 200 status:' + status)
+          }
+        })
+        return {};
+      }
+    }
+    catch (err: any | AxiosError) {
+      if (axios.isAxiosError(err)) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError(axios.isAxiosError(err) ? err.response?.data : err)
+          }
+        })
+      }
+      else {
+        console.log(err);
+      }
+      return {}
+    }
   }, []);
 
 

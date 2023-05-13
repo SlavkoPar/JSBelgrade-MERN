@@ -77,7 +77,7 @@ export interface ICategoriesContext {
 	//////////////
 	// questions
 	getCategoryQuestions: ({ parentCategory, level, inAdding }: IParentInfo) => void,
-	createQuestion: (question: IQuestion) => void,
+	createQuestion: (question: IQuestion) => Promise<any>,
 	viewQuestion: (_id: Types.ObjectId) => void,
 	editQuestion: (_id: Types.ObjectId) => void,
 	updateQuestion: (question: IQuestion) => void,
@@ -110,6 +110,7 @@ export enum ActionTypes {
 	SET_LOADING = 'SET_LOADING',
 	SET_SUB_CATEGORIES = 'SET_SUB_CATEGORIES',
 	CLEAN_SUB_TREE = 'CLEAN_SUB_TREE',
+	CLEAN_TREE = 'CLEAN_TREE',
 	SET_ERROR = 'SET_ERROR',
 	ADD_SUB_CATEGORY = 'ADD_SUB_CATEGORY',
 	SET_CATEGORY = 'SET_CATEGORY',
@@ -171,6 +172,8 @@ export type CategoriesPayload = {
 	[ActionTypes.CLEAN_SUB_TREE]: {
 		category: ICategory;
 	};
+
+	[ActionTypes.CLEAN_TREE]: undefined;
 
 	[ActionTypes.CLOSE_CATEGORY_FORM]: undefined;
 

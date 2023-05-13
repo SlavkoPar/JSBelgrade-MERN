@@ -39,14 +39,17 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
             dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { category } })
     }
 
-    const edit = (_id: Types.ObjectId) => {
-        // Load data from server and reinitialize category
-        editCategory(_id);
-    }
+    // const edit = (_id: Types.ObjectId) => {
+    //     // Load data from server and reinitialize category
+    //     editCategory(_id);
+    // }
 
     const onSelectCategory = (_id: Types.ObjectId) => {
         // Load data from server and reinitialize category
-        viewCategory(_id);
+        if (canEdit)
+            editCategory(_id);
+        else
+            viewCategory(_id);
     }
 
     const [hoverRef, hoverProps] = useHover();
@@ -78,14 +81,14 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
                 {numOfQuestions}<FontAwesomeIcon icon={faQuestion} size='sm' />
             </Badge>
 
-            {canEdit && !alreadyAdding && hoverProps.isHovered &&
+            {/* {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 px-0"
                     //onClick={() => { dispatch({ type: ActionTypes.EDIT, category }) }}>
                     onClick={() => edit(_id!)}
                 >
                     <FontAwesomeIcon icon={faEdit} size='lg' />
                 </Button>
-            }
+            } */}
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 mx-1"
