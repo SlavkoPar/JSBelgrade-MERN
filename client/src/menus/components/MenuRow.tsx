@@ -33,20 +33,20 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
     };
 
     const expand = (_id: Types.ObjectId) => {
-        const collapse = isExpanded;
         dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id, expanding: !isExpanded } });
-        if (collapse)
-            dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { menu } })
     }
 
-    const edit = (_id: Types.ObjectId) => {
-        // Load data from server and reinitialize menu
-        editMenu(_id);
-    }
+    // const edit = (_id: Types.ObjectId) => {
+    //     // Load data from server and reinitialize menu
+    //     editMenu(_id);
+    // }
 
     const onSelectMenu = (_id: Types.ObjectId) => {
         // Load data from server and reinitialize menu
-        viewMenu(_id);
+        if (canEdit)
+            editMenu(_id);
+        else
+            viewMenu(_id);
     }
 
     const [hoverRef, hoverProps] = useHover();
@@ -66,7 +66,7 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
             <Button
                 variant='link'
                 size="sm"
-                className={`py-0 mx-0 text-decoration-none ${(inViewing||inEditing) ? 'fw-bold':''}`}
+                className={`py-0 mx-0 text-decoration-none ${(inViewing || inEditing) ? 'fw-bold' : ''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectMenu(_id!)}
                 disabled={alreadyAdding}
@@ -74,18 +74,18 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
                 {title}
             </Button>
 
-            <Badge pill bg="secondary" className={numOfMeals===0?'d-none':'d-inline'}>
+            <Badge pill bg="secondary" className={numOfMeals === 0 ? 'd-none' : 'd-inline'}>
                 {numOfMeals}<FontAwesomeIcon icon={faThumbsUp} size='sm' />
             </Badge>
 
-            {canEdit && !alreadyAdding && hoverProps.isHovered &&
+            {/* {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 px-0"
                     //onClick={() => { dispatch({ type: ActionTypes.EDIT, menu }) }}>
                     onClick={() => edit(_id!)}
                 >
                     <FontAwesomeIcon icon={faEdit} size='lg' />
                 </Button>
-            }
+            } */}
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 mx-1"
@@ -96,33 +96,41 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
             }
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
-                <Button variant='link' size="sm" className="ms-2 py-0 mx-1 text-primary" title="Add SubMenu" >
-                    <FontAwesomeIcon icon={faPlus} size='lg'
-                        onClick={() => {
-                            dispatch({
-                                type: ActionTypes.ADD_SUB_MENU,
-                                payload: {
-                                    parentMenu: menu._id,
-                                    level: menu.level
-                                }
-                            })
-                            if (!isExpanded)
-                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
-                        }}
-                    />
+                <Button
+                    variant='link'
+                    size="sm"
+                    className="ms-2 py-0 mx-1 text-primary"
+                    title="Add SubMenu"
+                    onClick={() => {
+                        dispatch({
+                            type: ActionTypes.ADD_SUB_MENU,
+                            payload: {
+                                parentMenu: menu._id,
+                                level: menu.level
+                            }
+                        })
+                        if (!isExpanded)
+                            dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} size='lg' />
                 </Button>
             }
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
-                <Button variant='link' size="sm" className="ms-2 py-0 mx-1 text-secondary" title="Add Meal" >
-                    <FontAwesomeIcon icon={faPlus} size='lg'
-                        onClick={() => {
-                            const menuInfo: IMenuInfo = { _id: menu._id!, level: menu.level }
-                            dispatch({ type: ActionTypes.ADD_MEAL, payload: { menuInfo } })
-                            if (!isExpanded)
-                                dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
-                        }}
-                    />
+                <Button
+                    variant='link'
+                    size="sm"
+                    className="ms-2 py-0 mx-1 text-secondary"
+                    title="Add Meal"
+                    onClick={() => {
+                        const menuInfo: IMenuInfo = { _id: menu._id!, level: menu.level }
+                        dispatch({ type: ActionTypes.ADD_MEAL, payload: { menuInfo } })
+                        if (!isExpanded)
+                            dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id: _id!, expanding: true } });
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} size='lg' />
                     <FontAwesomeIcon icon={faThumbsUp} size='lg' style={{ marginLeft: '-5px' }} />
                 </Button>
             }

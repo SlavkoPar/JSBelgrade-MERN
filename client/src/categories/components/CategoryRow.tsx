@@ -33,10 +33,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
     };
 
     const expand = (_id: Types.ObjectId) => {
-        const collapse = isExpanded;
         dispatch({ type: ActionTypes.SET_EXPANDED, payload: { _id, expanding: !isExpanded } });
-        if (collapse)
-            dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { category } })
     }
 
     // const edit = (_id: Types.ObjectId) => {

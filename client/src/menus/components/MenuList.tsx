@@ -13,7 +13,7 @@ const MenuList = ({ title, parentMenu, level }: IParentInfo) => {
 
     const mySubMenus = state.menus.filter(c => c.parentMenu === parentMenu);
     return (
-        <div className={level>1?'ms-4':''}>
+        <div className={level>1?'ms-2':''}>
             <>
                 <ListGroup as="ul" variant='dark' className="mb-0">
                     {mySubMenus.map(menu => 

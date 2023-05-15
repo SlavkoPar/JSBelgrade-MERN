@@ -122,21 +122,28 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       };
     }
 
-    case ActionTypes.CLEAN_SUB_TREE: {
-      const { _id } = action.payload.menu;
-      const arr = markForClean(state.menus, _id!)
-      console.log('clean:', arr)
-      const _ids = arr.map(c => c._id)
-      if (arr.length === 0)
-        return {
-          ...state
-        }
-      else
-        return {
-          ...state,
-          menus: state.menus.filter(c => !_ids.includes(c._id))
-        }
-    }
+    // case ActionTypes.CLEAN_SUB_TREE: {
+    //   const { _id } = action.payload.menu;
+    //   const arr = markForClean(state.menus, _id!)
+    //   console.log('clean:', arr)
+    //   const _ids = arr.map(c => c._id)
+    //   if (arr.length === 0)
+    //     return {
+    //       ...state
+    //     }
+    //   else
+    //     return {
+    //       ...state,
+    //       menus: state.menus.filter(c => !_ids.includes(c._id))
+    //     }
+    // }
+
+    case ActionTypes.CLEAN_TREE: {
+      return {
+        ...state,
+        menus: []
+      }
+  }
 
     case ActionTypes.SET_ERROR: {
       const { error } = action.payload;
@@ -182,7 +189,12 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       return {
         ...state,
         menus: state.menus.map(c => c._id === menu._id
-          ? { ...menu, meals, inAdding: c.inAdding, isExpanded: c.isExpanded }
+          ? { ...menu, meals, 
+                inViewing: c.inViewing,
+                inEditing: c.inEditing,
+                inAdding: c.inAdding,
+                isExpanded: c.isExpanded 
+          }
           : c),
         // keep mode
         loading: false
@@ -208,7 +220,7 @@ const reducer = (state: IMenusState, action: MenusActions) => {
         ...state,
         menus: state.menus.map(c => c._id === menu._id
           ? { ...menu, inEditing: true, isExpanded: c.isExpanded }
-          : c
+          : {...c, inEditing: false }
         ),
         mode: Mode.EditingMenu,
         loading: false
@@ -238,12 +250,22 @@ const reducer = (state: IMenusState, action: MenusActions) => {
 
     case ActionTypes.SET_EXPANDED: {
       const { _id, expanding } = action.payload;
+      let { menus } = state;
+      if (!expanding) {
+        const arr = markForClean(menus, _id!)
+        console.log('clean:', arr)
+        const _ids = arr.map(c => c._id)
+        if (_ids.length > 0) {
+          menus = menus.filter(c => !_ids.includes(c._id))
+        }
+      }
       return {
         ...state,
-        menus: state.menus.map(c => c._id === _id
+        menus: menus.map(c => c._id === _id
           ? { ...c, isExpanded: expanding }
           : c
         ),
+        mode: expanding ? state.mode : Mode.NULL,  // TODO  close form only if inside of colapsed node
         currentMenuExpanded: expanding ? _id.toString() : state.currentMenuExpanded
       };
     }

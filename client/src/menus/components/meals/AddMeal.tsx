@@ -1,19 +1,25 @@
 import { useState } from "react";
-import { useMenuContext } from 'menus/MenuProvider'
+import { useMenuContext, useMenuDispatch } from 'menus/MenuProvider'
 import { useGlobalState } from 'global/GlobalProvider'
 
 import MealForm from "menus/components/meals/MealForm";
-import { FormMode, IMeal } from "../../types";
+import { ActionTypes, FormMode, IMeal } from "menus/types";
 
-// const Add = ({ menu, meal, inLine } : { menu: IMenu, meal: IMeal, inLine: boolean}) => {
-const AddMeal = ({ meal, inLine } : { meal: IMeal, inLine: boolean }) => { //{ menu }: { menu: IMenu }) => {
+interface IProps {
+    meal: IMeal,
+    inLine: boolean,
+    showCloseButton: boolean;
+}
+
+const AddMeal = ({ meal, inLine }: IProps) => {
     const globalState = useGlobalState();
     const { userId, wsId } = globalState.authUser;
 
-    const { createMeal } = useMenuContext();
+    const dispatch = useMenuDispatch();
+    const { createMeal, getAllParentMenus } = useMenuContext();
     const [formValues] = useState(meal)
 
-    const submitForm = (mealObject: IMeal) => {
+    const submitForm = async (mealObject: IMeal) => {
         delete mealObject.inAdding;
         delete mealObject._id;
         const object: IMeal = {
@@ -27,7 +33,12 @@ const AddMeal = ({ meal, inLine } : { meal: IMeal, inLine: boolean }) => { //{ m
                 }
             }
         }
-        createMeal(object);
+        const meal = await createMeal(object);
+        // on real app we can add meal from modal dlg, without knowing menu
+        // if (meal) {
+        //     dispatch({ type: ActionTypes.CLEAN_TREE, payload: { _id: meal.parentMenu } })
+        //     await getAllParentMenus(meal.parentMenu, meal._id);
+        // }
     }
 
     return (

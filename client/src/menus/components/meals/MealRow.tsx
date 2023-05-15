@@ -15,7 +15,7 @@ import EditMeal from "menus/components/meals/EditMeal";
 import ViewMeal from "menus/components/meals/ViewMeal";
 
 const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | undefined }) => {
-    const { _id, parentMenu, level, title, inViewing, inEditing, inAdding} = meal;
+    const { _id, parentMenu, level, title, inViewing, inEditing, inAdding } = meal;
 
     const { canEdit, isDarkMode, variant, bg } = useGlobalState();
 
@@ -35,8 +35,12 @@ const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | 
 
     const onSelectMeal = (_id: Types.ObjectId) => {
         // Load data from server and reinitialize meal
-        viewMeal(_id);
+        if (canEdit)
+            editMeal(_id);
+        else 
+            viewMeal(_id);
     }
+
     const [hoverRef, hoverProps] = useHover();
 
     const Row1 =
@@ -55,7 +59,7 @@ const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | 
             <Button
                 variant='link'
                 size="sm"
-                className={`py-0 mx-0 text-decoration-none text-secondary ${(inViewing||inEditing) ? 'fw-bold':''}`}
+                className={`py-0 mx-0 text-decoration-none text-secondary ${(inViewing || inEditing) ? 'fw-bold' : ''}`}
                 title={_id!.toString()}
                 onClick={() => onSelectMeal(_id!)}
                 disabled={alreadyAdding}
@@ -63,14 +67,14 @@ const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | 
                 {title}
             </Button>
 
-            {canEdit && !alreadyAdding && hoverProps.isHovered &&
+            {/* {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 px-1 text-secondary"
                     //onClick={() => { dispatch({ type: ActionTypes.EDIT, meal }) }}>
                     onClick={() => edit(_id!)}
                 >
                     <FontAwesomeIcon icon={faEdit} size='lg' />
                 </Button>
-            }
+            } */}
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
                 <Button variant='link' size="sm" className="ms-1 py-0 mx-1 text-secondary"
@@ -81,13 +85,17 @@ const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | 
             }
 
             {canEdit && !alreadyAdding && hoverProps.isHovered &&
-                <Button variant='link' size="sm" className="ms-2 py-0 mx-1 text-secondary" title="Add Meal" >
-                    <FontAwesomeIcon icon={faPlus} size='lg'
-                        onClick={() => {
-                            const menuInfo: IMenuInfo = { _id: parentMenu, level }
-                            dispatch({ type: ActionTypes.ADD_MEAL, payload: { menuInfo } })
-                        }}
-                    />
+                <Button
+                    variant='link'
+                    size="sm"
+                    className="ms-2 py-0 mx-1 text-secondary"
+                    title="Add Meal"
+                    onClick={() => {
+                        const menuInfo: IMenuInfo = { _id: parentMenu, level }
+                        dispatch({ type: ActionTypes.ADD_MEAL, payload: { menuInfo } })
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} size='lg' />
                     <FontAwesomeIcon icon={faThumbsUp} size='lg' style={{ marginLeft: '-5px' }} />
                 </Button>
             }
@@ -100,7 +108,7 @@ const MealRow = ({ meal, menuInAdding }: { meal: IMeal, menuInAdding: boolean | 
             as="li"
         >
             {inAdding && menuInAdding && state.mode === Mode.AddingMeal ? (
-                <AddMeal meal={meal} inLine={true} />
+                <AddMeal meal={meal} inLine={true}  showCloseButton={true} />
             )
                 : ((inEditing && state.mode === Mode.EditingMeal) ||
                     (inViewing && state.mode === Mode.ViewingMeal)) ? (

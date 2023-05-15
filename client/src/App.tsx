@@ -66,7 +66,7 @@ function App() {
         <Col md={12}>
           <div className="wrapper">
             <Routes>
-              <Route path="/" element={!isAuthenticated ? <About /> : <Categories />} />
+              <Route path="/" element={(!isAuthenticated && !everLoggedIn) ? <About /> : <Categories />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/menus" element={<Menus />} />
               <Route path="/register" element={<RegisterForm />} />

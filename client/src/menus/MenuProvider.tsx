@@ -166,37 +166,48 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
   // Meals
   //
 
-
   const getMenuMeals = useCallback(({ parentMenu: _id, level }: IParentInfo) => {
     getMenu(_id!, ActionTypes.SET_MENU)
     //(state.mode === Mode.AddingMenu || state.mode === Mode.AddingMeal) 
   }, []);
 
   
-  const createMeal = useCallback((meal: IMeal) => {
-    // dispatch({ type: ActionTypes.SET_LOADING })
-    axios
-      .post(`/api/meals/create-meal`, meal)
-      .then(({ status, data }) => {
-        if (status === 200) {
-          console.log('Meal successfully created')
-          dispatch({ type: ActionTypes.SET_MEAL, payload: { meal: data } }); // TODO check setting inViewing, inEditing, inAdding to false
-          // TODO setting inAdding: false will close the form
-        }
-        else {
-          console.log('Status is not 200', status)
-          dispatch({
-            type: ActionTypes.SET_ERROR,
-            payload: {
-              error: new AxiosError('Status is not 200 status:' + status)
-            }
-          })
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({ type: ActionTypes.SET_ERROR, payload: error });
-      });
+  const createMeal = useCallback(async (meal: IMeal): Promise<any> => {
+    try {
+      const url = '/api/meals/create-meal'
+      const res = await axios.post(url, meal)
+      const { status, data } = res;
+      if (status === 200) {
+        console.log("Meal successfully created");
+        // TODO check setting inViewing, inEditing, inAdding to false
+        dispatch({ type: ActionTypes.SET_MEAL, payload: { meal: data } });
+        return data;
+      }
+      else {
+        console.log('Status is not 200', status)
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError('Status is not 200 status:' + status)
+          }
+        })
+        return {};
+      }
+    }
+    catch (err: any | AxiosError) {
+      if (axios.isAxiosError(err)) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError(axios.isAxiosError(err) ? err.response?.data : err)
+          }
+        })
+      }
+      else {
+        console.log(err);
+      }
+      return {}
+    }
   }, []);
 
 

@@ -77,7 +77,7 @@ export interface IMenusContext {
 	//////////////
 	// meals
 	getMenuMeals: ({ parentMenu, level, inAdding }: IParentInfo) => void,
-	createMeal: (meal: IMeal) => void,
+	createMeal: (meal: IMeal) => Promise<any>,
 	viewMeal: (_id: Types.ObjectId) => void,
 	editMeal: (_id: Types.ObjectId) => void,
 	updateMeal: (meal: IMeal) => void,
@@ -110,6 +110,7 @@ export enum ActionTypes {
 	SET_LOADING = 'SET_LOADING',
 	SET_SUB_MENUS = 'SET_SUB_MENUS',
 	CLEAN_SUB_TREE = 'CLEAN_SUB_TREE',
+	CLEAN_TREE = 'CLEAN_TREE',
 	SET_ERROR = 'SET_ERROR',
 	ADD_SUB_MENU = 'ADD_SUB_MENU',
 	SET_MENU = 'SET_MENU',
@@ -171,6 +172,8 @@ export type MenusPayload = {
 	[ActionTypes.CLEAN_SUB_TREE]: {
 		menu: IMenu;
 	};
+
+	[ActionTypes.CLEAN_TREE]: undefined;
 
 	[ActionTypes.CLOSE_MENU_FORM]: undefined;
 

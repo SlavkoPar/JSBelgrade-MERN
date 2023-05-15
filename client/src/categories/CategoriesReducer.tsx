@@ -122,21 +122,21 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       };
     }
 
-    case ActionTypes.CLEAN_SUB_TREE: {
-      const { _id } = action.payload.category;
-      const arr = markForClean(state.categories, _id!)
-      console.log('clean:', arr)
-      const _ids = arr.map(c => c._id)
-      if (arr.length === 0)
-        return {
-          ...state
-        }
-      else
-        return {
-          ...state,
-          categories: state.categories.filter(c => !_ids.includes(c._id))
-        }
-    }
+    // case ActionTypes.CLEAN_SUB_TREE: {
+    //   const { _id } = action.payload.category;
+    //   const arr = markForClean(state.categories, _id!)
+    //   console.log('clean:', arr)
+    //   const _ids = arr.map(c => c._id)
+    //   if (arr.length === 0)
+    //     return {
+    //       ...state
+    //     }
+    //   else
+    //     return {
+    //       ...state,
+    //       categories: state.categories.filter(c => !_ids.includes(c._id))
+    //     }
+    // }
 
     case ActionTypes.CLEAN_TREE: {
       return {
@@ -189,7 +189,12 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       return {
         ...state,
         categories: state.categories.map(c => c._id === category._id
-          ? { ...category, questions, inAdding: c.inAdding, isExpanded: c.isExpanded }
+          ? { ...category, questions, 
+                inViewing: c.inViewing,
+                inEditing: c.inEditing,
+                inAdding: c.inAdding,
+                isExpanded: c.isExpanded 
+          }
           : c),
         // keep mode
         loading: false
@@ -215,7 +220,7 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
         ...state,
         categories: state.categories.map(c => c._id === category._id
           ? { ...category, inEditing: true, isExpanded: c.isExpanded }
-          : c
+          : {...c, inEditing: false }
         ),
         mode: Mode.EditingCategory,
         loading: false
@@ -245,12 +250,22 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
 
     case ActionTypes.SET_EXPANDED: {
       const { _id, expanding } = action.payload;
+      let { categories } = state;
+      if (!expanding) {
+        const arr = markForClean(categories, _id!)
+        console.log('clean:', arr)
+        const _ids = arr.map(c => c._id)
+        if (_ids.length > 0) {
+          categories = categories.filter(c => !_ids.includes(c._id))
+        }
+      }
       return {
         ...state,
-        categories: state.categories.map(c => c._id === _id
+        categories: categories.map(c => c._id === _id
           ? { ...c, isExpanded: expanding }
           : c
         ),
+        mode: expanding ? state.mode : Mode.NULL,  // TODO  close form only if inside of colapsed node
         currentCategoryExpanded: expanding ? _id.toString() : state.currentCategoryExpanded
       };
     }
