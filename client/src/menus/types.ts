@@ -29,6 +29,7 @@ export interface IMeal extends IRecord {
 	title: string,
 	level: number,
 	parentMenu: Types.ObjectId,
+	menuTitle: string,
 	source: number,
 	status: number
 }
@@ -69,6 +70,7 @@ export interface IMenusContext {
 	state: IMenusState,
 	getAllParentMenus: (menuId: string, mealId: string | null) => Promise<any>;
 	getSubMenus: ({ parentMenu, level }: IParentInfo) => void,
+	getSubCats: ({ parentMenu, level }: IParentInfo) => Promise<any>,
 	createMenu: (menu: IMenu) => void,
 	viewMenu: (_id: Types.ObjectId) => void,
 	editMenu: (_id: Types.ObjectId) => void,
@@ -80,7 +82,7 @@ export interface IMenusContext {
 	createMeal: (meal: IMeal) => Promise<any>,
 	viewMeal: (_id: Types.ObjectId) => void,
 	editMeal: (_id: Types.ObjectId) => void,
-	updateMeal: (meal: IMeal) => void,
+	updateMeal: (meal: IMeal) => Promise<any>,
 	deleteMeal: (_id: Types.ObjectId) => void
 }
 
@@ -224,3 +226,52 @@ export type MenusPayload = {
 export type MenusActions =
 	ActionMap<MenusPayload>[keyof ActionMap<MenusPayload>];
 
+/////////////////////////////////////////////////////////////////////////
+// DropDown Select Menu
+
+export interface ICatsState {
+	loading: boolean,
+	parentMenu: Types.ObjectId | null,
+	title: string,
+	cats: IMenu[], // drop down menus
+	error?: AxiosError;
+}
+
+export interface ICatInfo {
+	parentMenu: Types.ObjectId | null,
+	level: number,
+	setParentMenu : (menu: IMenu) => void;
+}
+
+export enum CatsActionTypes {
+	SET_LOADING = 'SET_LOADING',
+	SET_SUB_CATS = 'SET_SUB_CATS',
+	SET_ERROR = 'SET_ERROR',
+	SET_EXPANDED = 'SET_EXPANDED',
+	SET_PARENT_MENU = 'SET_PARENT_MENU'
+}
+
+export type CatsPayload = {
+	[CatsActionTypes.SET_LOADING]: undefined;
+
+	[CatsActionTypes.SET_SUB_CATS]: {
+		subCats: IMenu[];
+	};
+
+	[CatsActionTypes.SET_EXPANDED]: {
+		_id: Types.ObjectId;
+		expanding: boolean;
+	}
+
+	[CatsActionTypes.SET_ERROR]: {
+		error: AxiosError;
+	};
+
+	[CatsActionTypes.SET_PARENT_MENU]: {
+		menu: IMenu;
+	};
+
+};
+
+export type CatsActions =
+	ActionMap<CatsPayload>[keyof ActionMap<CatsPayload>];

@@ -1,14 +1,16 @@
 import { useEffect, useRef } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Form, CloseButton } from "react-bootstrap";
+import { Form, CloseButton, Dropdown } from "react-bootstrap";
 import { CreatedModifiedForm } from "common/CreateModifiedForm"
 import { FormButtons } from "common/FormButtons"
-import { ActionTypes, FormMode, IMeal, IMealFormProps } from "menus/types";
+import { ActionTypes, FormMode, IMenu, IMeal, IMealFormProps } from "menus/types";
 
 import { Select } from 'common/components/Select';
 import { sourceOptions } from 'common/sourceOptions'
 import { statusOptions } from 'common/statusOptions'
+import CatList from 'menus/components/selectMenu/CatList'
+
 
 import { useMenuDispatch } from "menus/MenuProvider";
 
@@ -54,10 +56,55 @@ const MealForm = ({ mode, initialValues, submitForm, children }: IMealFormProps)
 
   const isDisabled = mode === FormMode.viewing;
 
+  const setParentMenu = (cat: IMenu) => {
+    formik.setFieldValue('parentMenu', cat._id!);
+    formik.setFieldValue('menuTitle', cat.title);
+  }
+
   return (
     <div className="form-wrapper px-3 py-0 my-0 mb-1 w-100">
       <CloseButton onClick={closeForm} className="float-end" />
       <Form onSubmit={formik.handleSubmit}>
+
+      <Form.Label>Menu</Form.Label>
+        <Form.Group controlId="parentMenu" className="menu-select form-select-sm">
+          <Dropdown>
+            <Dropdown.Toggle variant="light" id="dropdown-basic" className="px-2 py-1 text-primary" disabled={isDisabled}>
+              {formik.values.menuTitle}
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="p-0">
+              <Dropdown.Item className="p-0 m-0 rounded-3">
+                <CatList
+                  parentMenu={null}
+                  level={1}
+                  setParentMenu={setParentMenu}
+                />
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Form.Control
+            as="input"
+            name="parentMenu"
+            onChange={formik.handleChange}
+            //onBlur={formik.handleBlur}
+            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
+            //   if (isEdit && formik.initialValues.title !== formik.values.title)
+            //     formik.submitForm();
+            // }}
+            value={formik.values.parentMenu.toString()}
+            placeholder='Menu'
+            className="text-primary w-100"
+            disabled={isDisabled}
+            hidden={true}
+          />
+          <Form.Text className="text-danger">
+            {formik.touched.parentMenu && formik.errors.parentMenu ? (
+              <div className="text-danger">{formik.errors.parentMenu ? 'required' : ''}</div>
+            ) : null}
+          </Form.Text>
+        </Form.Group>
+
         <Form.Group controlId="title">
           <Form.Label>Title</Form.Label>
           <Form.Control

@@ -67,6 +67,42 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
       });
   }, [wsId, menuIds]);
 
+  const getSubCats = useCallback(async ({ parentMenu, level }: IParentInfo): Promise<any> => {
+    try {
+      const url = `/api/menus/${wsId}-${parentMenu}`
+      const res = await axios.get(url)
+      const { status, data } = res;
+      if (status === 200) {
+        const subMenus = data.map((c: IMenu) => ({
+          ...c,
+          meals: [],
+          isExpanded: false
+        }))
+        return subMenus;
+      }
+      else {
+        console.log('Status is not 200', status)
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: { error: new AxiosError('Status is not 200 status:' + status) }
+        });
+      }
+    }
+    catch (err: any | AxiosError) {
+      if (axios.isAxiosError(err)) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: err
+          }
+        })
+      }
+      else {
+        console.log(err);
+      }
+    }
+  }, [wsId]);
+
   const createMenu = useCallback((menu: IMenu) => {
     dispatch({ type: ActionTypes.SET_LOADING }) // TODO treba li ovo 
     axios
@@ -235,31 +271,43 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
     getMeal(_id, ActionTypes.EDIT_MEAL);
   }, []);
 
-  const updateMeal = useCallback((meal: IMeal) => {
-    // no need for re-render, before update
-    // dispatch({ type: ActionTypes.SET_LOADING }) 
-    const url = `/api/meals/update-meal/${meal._id}`
-    axios
-      .put(url, meal)
-      .then(({ status, data: meal }) => {
-        if (status === 200) {
-          console.log("Meal successfully updated");
-          dispatch({ type: ActionTypes.SET_MEAL, payload: { meal } });
-          // dispatch({ type: ActionTypes.CLOSE_MEAL_FORM, payload: { meal } }) 
-          // no need for this SET_MEAL will turn of inViewing, inEditing, inAdding for menu and its meals[]
-        }
-        else {
-          console.log('Status is not 200', status)
-          dispatch({
-            type: ActionTypes.SET_ERROR,
-            payload: { error: new AxiosError('Status is not 200 status:' + status) }
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({ type: ActionTypes.SET_ERROR, payload: error });
-      });
+  const updateMeal = useCallback(async (meal: IMeal): Promise<any> => {
+    try {
+      const url = `/api/meals/update-meal/${meal._id}`
+      const res = await axios.put(url, meal)
+      const { status, data } = res;
+      if (status === 200) {
+        // TODO check setting inViewing, inEditing, inAdding to false
+        console.log("Meal successfully updated");
+        dispatch({ type: ActionTypes.SET_MEAL, payload: { meal: data } });
+        return data;
+      }
+      else {
+        console.log('Status is not 200', status)
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError('Status is not 200 status:' + status)
+          }
+        })
+        return {};
+      }
+    }
+    catch (err: any | AxiosError) {
+      if (axios.isAxiosError(err)) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError(axios.isAxiosError(err) ? err.response?.data : err)
+          }
+        })
+        return {};
+      }
+      else {
+        console.log(err);
+      }
+      return {}
+    }
   }, []);
 
   const deleteMeal = (_id: Types.ObjectId) => {
@@ -281,7 +329,7 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
   const contextValue: IMenusContext = {
     state,
     getAllParentMenus,
-    getSubMenus, createMenu, viewMenu, editMenu, updateMenu, deleteMenu,
+    getSubMenus, getSubCats, createMenu, viewMenu, editMenu, updateMenu, deleteMenu,
     getMenuMeals, createMeal, viewMeal, editMeal, updateMeal, deleteMeal
   }
   return (

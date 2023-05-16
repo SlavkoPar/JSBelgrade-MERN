@@ -67,6 +67,42 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
       });
   }, [wsId, categoryIds]);
 
+  const getSubCats = useCallback(async ({ parentCategory, level }: IParentInfo): Promise<any> => {
+    try {
+      const url = `/api/categories/${wsId}-${parentCategory}`
+      const res = await axios.get(url)
+      const { status, data } = res;
+      if (status === 200) {
+        const subCategories = data.map((c: ICategory) => ({
+          ...c,
+          questions: [],
+          isExpanded: false
+        }))
+        return subCategories;
+      }
+      else {
+        console.log('Status is not 200', status)
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: { error: new AxiosError('Status is not 200 status:' + status) }
+        });
+      }
+    }
+    catch (err: any | AxiosError) {
+      if (axios.isAxiosError(err)) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: err
+          }
+        })
+      }
+      else {
+        console.log(err);
+      }
+    }
+  }, [wsId]);
+
   const createCategory = useCallback((category: ICategory) => {
     dispatch({ type: ActionTypes.SET_LOADING }) // TODO treba li ovo 
     axios
@@ -235,31 +271,43 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
     getQuestion(_id, ActionTypes.EDIT_QUESTION);
   }, []);
 
-  const updateQuestion = useCallback((question: IQuestion) => {
-    // no need for re-render, before update
-    // dispatch({ type: ActionTypes.SET_LOADING }) 
-    const url = `/api/questions/update-question/${question._id}`
-    axios
-      .put(url, question)
-      .then(({ status, data: question }) => {
-        if (status === 200) {
-          console.log("Question successfully updated");
-          dispatch({ type: ActionTypes.SET_QUESTION, payload: { question } });
-          // dispatch({ type: ActionTypes.CLOSE_QUESTION_FORM, payload: { question } }) 
-          // no need for this SET_QUESTION will turn of inViewing, inEditing, inAdding for category and its questions[]
-        }
-        else {
-          console.log('Status is not 200', status)
-          dispatch({
-            type: ActionTypes.SET_ERROR,
-            payload: { error: new AxiosError('Status is not 200 status:' + status) }
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({ type: ActionTypes.SET_ERROR, payload: error });
-      });
+  const updateQuestion = useCallback(async (question: IQuestion): Promise<any> => {
+    try {
+      const url = `/api/questions/update-question/${question._id}`
+      const res = await axios.put(url, question)
+      const { status, data } = res;
+      if (status === 200) {
+        // TODO check setting inViewing, inEditing, inAdding to false
+        console.log("Question successfully updated");
+        dispatch({ type: ActionTypes.SET_QUESTION, payload: { question: data } });
+        return data;
+      }
+      else {
+        console.log('Status is not 200', status)
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError('Status is not 200 status:' + status)
+          }
+        })
+        return {};
+      }
+    }
+    catch (err: any | AxiosError) {
+      if (axios.isAxiosError(err)) {
+        dispatch({
+          type: ActionTypes.SET_ERROR,
+          payload: {
+            error: new AxiosError(axios.isAxiosError(err) ? err.response?.data : err)
+          }
+        })
+        return {};
+      }
+      else {
+        console.log(err);
+      }
+      return {}
+    }
   }, []);
 
   const deleteQuestion = (_id: Types.ObjectId) => {
@@ -281,7 +329,7 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   const contextValue: ICategoriesContext = {
     state,
     getAllParentCategories,
-    getSubCategories, createCategory, viewCategory, editCategory, updateCategory, deleteCategory,
+    getSubCategories, getSubCats, createCategory, viewCategory, editCategory, updateCategory, deleteCategory,
     getCategoryQuestions, createQuestion, viewQuestion, editQuestion, updateQuestion, deleteQuestion
   }
   return (

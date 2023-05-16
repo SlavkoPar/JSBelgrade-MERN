@@ -26,6 +26,33 @@ const mealPipeline = (id) => [
     $match: {
       _id: ObjectId(id),
     }
+  },
+  {
+    $lookup: {
+      from: "menus",
+      localField: "parentMenu",
+      foreignField: "_id",
+      pipeline: [
+        {
+          $project: {
+            menuTitle: "$title",
+          },
+        },
+      ],
+      as: "fromMenu",
+    },
+  },
+  {
+    $replaceRoot: {
+      newRoot: {
+        $mergeObjects: [
+          {
+            $arrayElemAt: ["$fromMenu", 0],
+          },
+          "$$ROOT",
+        ],
+      },
+    },
   }
 ]
 
@@ -138,6 +165,7 @@ const arrPipeline = [
       title: 1,
       level: 1,
       parentMenu: 1,
+      menuTitle: 1,
       created: 1,
       createdBy: 1,
       modified: 1,

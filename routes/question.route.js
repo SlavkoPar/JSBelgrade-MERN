@@ -26,6 +26,33 @@ const questionPipeline = (id) => [
     $match: {
       _id: ObjectId(id),
     }
+  },
+  {
+    $lookup: {
+      from: "categories",
+      localField: "parentCategory",
+      foreignField: "_id",
+      pipeline: [
+        {
+          $project: {
+            categoryTitle: "$title",
+          },
+        },
+      ],
+      as: "fromCategory",
+    },
+  },
+  {
+    $replaceRoot: {
+      newRoot: {
+        $mergeObjects: [
+          {
+            $arrayElemAt: ["$fromCategory", 0],
+          },
+          "$$ROOT",
+        ],
+      },
+    },
   }
 ]
 
@@ -138,6 +165,7 @@ const arrPipeline = [
       title: 1,
       level: 1,
       parentCategory: 1,
+      categoryTitle: 1,
       created: 1,
       createdBy: 1,
       modified: 1,

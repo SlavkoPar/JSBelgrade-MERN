@@ -8,6 +8,7 @@ export const initialQuestion: IQuestion = {
   // real _id will be given by the MongoDB 
   wsId: new Types.ObjectId("000000000000000000000000"),
   parentCategory: new Types.ObjectId('000000000000000000000000'),
+  categoryTitle: '',
   _id: new Types.ObjectId('000000000000000000000000'),
   title: '',
   level: 0,

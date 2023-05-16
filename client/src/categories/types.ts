@@ -29,6 +29,7 @@ export interface IQuestion extends IRecord {
 	title: string,
 	level: number,
 	parentCategory: Types.ObjectId,
+	categoryTitle: string,
 	source: number,
 	status: number
 }
@@ -69,6 +70,7 @@ export interface ICategoriesContext {
 	state: ICategoriesState,
 	getAllParentCategories: (categoryId: string, questionId: string | null) => Promise<any>;
 	getSubCategories: ({ parentCategory, level }: IParentInfo) => void,
+	getSubCats: ({ parentCategory, level }: IParentInfo) => Promise<any>,
 	createCategory: (category: ICategory) => void,
 	viewCategory: (_id: Types.ObjectId) => void,
 	editCategory: (_id: Types.ObjectId) => void,
@@ -80,7 +82,7 @@ export interface ICategoriesContext {
 	createQuestion: (question: IQuestion) => Promise<any>,
 	viewQuestion: (_id: Types.ObjectId) => void,
 	editQuestion: (_id: Types.ObjectId) => void,
-	updateQuestion: (question: IQuestion) => void,
+	updateQuestion: (question: IQuestion) => Promise<any>,
 	deleteQuestion: (_id: Types.ObjectId) => void
 }
 
@@ -224,3 +226,52 @@ export type CategoriesPayload = {
 export type CategoriesActions =
 	ActionMap<CategoriesPayload>[keyof ActionMap<CategoriesPayload>];
 
+/////////////////////////////////////////////////////////////////////////
+// DropDown Select Category
+
+export interface ICatsState {
+	loading: boolean,
+	parentCategory: Types.ObjectId | null,
+	title: string,
+	cats: ICategory[], // drop down categories
+	error?: AxiosError;
+}
+
+export interface ICatInfo {
+	parentCategory: Types.ObjectId | null,
+	level: number,
+	setParentCategory : (category: ICategory) => void;
+}
+
+export enum CatsActionTypes {
+	SET_LOADING = 'SET_LOADING',
+	SET_SUB_CATS = 'SET_SUB_CATS',
+	SET_ERROR = 'SET_ERROR',
+	SET_EXPANDED = 'SET_EXPANDED',
+	SET_PARENT_CATEGORY = 'SET_PARENT_CATEGORY'
+}
+
+export type CatsPayload = {
+	[CatsActionTypes.SET_LOADING]: undefined;
+
+	[CatsActionTypes.SET_SUB_CATS]: {
+		subCats: ICategory[];
+	};
+
+	[CatsActionTypes.SET_EXPANDED]: {
+		_id: Types.ObjectId;
+		expanding: boolean;
+	}
+
+	[CatsActionTypes.SET_ERROR]: {
+		error: AxiosError;
+	};
+
+	[CatsActionTypes.SET_PARENT_CATEGORY]: {
+		category: ICategory;
+	};
+
+};
+
+export type CatsActions =
+	ActionMap<CatsPayload>[keyof ActionMap<CatsPayload>];
