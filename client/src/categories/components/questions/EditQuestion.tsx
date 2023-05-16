@@ -7,7 +7,7 @@ import { ActionTypes, FormMode, IQuestion } from "categories/types";
 const EditQuestion = ({ inLine }: {inLine: boolean}) => {
     const globalState = useGlobalState();
     const dispatch = useCategoryDispatch();
-    const { state, updateQuestion, getAllParentCategories } = useCategoryContext();
+    const { state, updateQuestion, reloadCategoryNode } = useCategoryContext();
     const category = state.categories.find(c=>c.inEditing);
     const question = category!.questions.find(q => q.inEditing)
     
@@ -24,7 +24,7 @@ const EditQuestion = ({ inLine }: {inLine: boolean}) => {
         const q = await updateQuestion(object)
         if (question!.parentCategory !== q.parentCategory) {
             dispatch({ type: ActionTypes.CLEAN_TREE, payload: { _id: q.parentCategory } })
-            await getAllParentCategories(q.parentCategory, q._id);
+            await reloadCategoryNode(q.parentCategory, q._id);
         }
     };
 

@@ -27,6 +27,31 @@ $badge-padding-y: .125em;
 //$small-font-size: .5 !default; // .875em
 
 // $body-bg: #000;
+.form-select-sm {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    font-size: 0.9625rem;
+    border-radius: var(--bs-border-radius-sm);
+}
+.category-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    appearance: none;
+}
 
 @import "~bootstrap/scss/variables";
 .dropdown-item {

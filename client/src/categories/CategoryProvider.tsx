@@ -24,7 +24,7 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   const { parentCategories } = state;
   const { categoryIds } = parentCategories!;
 
-  const getAllParentCategories = useCallback(async (categoryId: string, questionId: string | null): Promise<any> => {
+  const reloadCategoryNode = useCallback(async (categoryId: string, questionId: string | null): Promise<any> => {
     try {
       const res = await axios.get(`/api/categories/get-parent-categories/${categoryId}`);
       const { status, data } = res;
@@ -328,7 +328,7 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
 
   const contextValue: ICategoriesContext = {
     state,
-    getAllParentCategories,
+    reloadCategoryNode: reloadCategoryNode,
     getSubCategories, getSubCats, createCategory, viewCategory, editCategory, updateCategory, deleteCategory,
     getCategoryQuestions, createQuestion, viewQuestion, editQuestion, updateQuestion, deleteQuestion
   }

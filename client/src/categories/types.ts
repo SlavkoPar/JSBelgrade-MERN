@@ -68,7 +68,7 @@ export interface ICategoriesState {
 
 export interface ICategoriesContext {
 	state: ICategoriesState,
-	getAllParentCategories: (categoryId: string, questionId: string | null) => Promise<any>;
+	reloadCategoryNode: (categoryId: string, questionId: string | null) => Promise<any>;
 	getSubCategories: ({ parentCategory, level }: IParentInfo) => void,
 	getSubCats: ({ parentCategory, level }: IParentInfo) => Promise<any>,
 	createCategory: (category: ICategory) => void,

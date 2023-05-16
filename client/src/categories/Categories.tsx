@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const Providered = ({ categoryId_questionId }: IProps) => {
-    const { state, getAllParentCategories } = useCategoryContext();
+    const { state, reloadCategoryNode } = useCategoryContext();
     const { lastCategoryExpanded } = state;
 
     const dispatch = useCategoryDispatch();
@@ -27,10 +27,10 @@ const Providered = ({ categoryId_questionId }: IProps) => {
     useEffect(() => {
         (async () => {
             if (lastCategoryExpanded) {
-                await getAllParentCategories(lastCategoryExpanded, null);
+                await reloadCategoryNode(lastCategoryExpanded, null);
             }
         })()
-    }, [lastCategoryExpanded, getAllParentCategories, categoryId_questionId])
+    }, [lastCategoryExpanded, reloadCategoryNode, categoryId_questionId])
 
     if (lastCategoryExpanded)
         return <div>loading...</div>

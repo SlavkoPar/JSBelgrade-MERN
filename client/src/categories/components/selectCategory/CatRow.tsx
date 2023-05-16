@@ -27,8 +27,6 @@ const CatRow = ({ category, dispatch, setParentCategory }: ICatRow) => {
     }
 
     const onSelectCategory = (category: ICategory) => {
-        // Load data from server and reinitialize category
-        // viewCategory(_id);
         setParentCategory(category);
     }
 

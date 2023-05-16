@@ -69,7 +69,7 @@ const QuestionForm = ({ mode, question, submitForm, children }: IQuestionFormPro
       <Form.Label>Category</Form.Label>
         <Form.Group controlId="parentCategory" className="category-select form-select-sm">
           <Dropdown>
-            <Dropdown.Toggle variant="light" id="dropdown-basic" className="px-2 py-1 text-primary" disabled={isDisabled}>
+            <Dropdown.Toggle variant="light" id="dropdown-basic" className="px-1 py-1 text-primary" disabled={isDisabled}>
               {formik.values.categoryTitle}
             </Dropdown.Toggle>
             <Dropdown.Menu className="p-0">
