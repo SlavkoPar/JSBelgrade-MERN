@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const Providered = ({ menuId_mealId }: IProps) => {
-    const { state, getAllParentMenus } = useMenuContext();
+    const { state, reloadMenuNode } = useMenuContext();
     const { lastMenuExpanded } = state;
 
     const dispatch = useMenuDispatch();
@@ -27,10 +27,10 @@ const Providered = ({ menuId_mealId }: IProps) => {
     useEffect(() => {
         (async () => {
             if (lastMenuExpanded) {
-                await getAllParentMenus(lastMenuExpanded, null);
+                await reloadMenuNode(lastMenuExpanded, null);
             }
         })()
-    }, [lastMenuExpanded, getAllParentMenus, menuId_mealId])
+    }, [lastMenuExpanded, reloadMenuNode, menuId_mealId])
 
     if (lastMenuExpanded)
         return <div>loading...</div>

@@ -24,7 +24,7 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
   const { parentMenus } = state;
   const { menuIds } = parentMenus!;
 
-  const getAllParentMenus = useCallback(async (menuId: string, mealId: string | null): Promise<any> => {
+  const reloadMenuNode = useCallback(async (menuId: string, mealId: string | null): Promise<any> => {
     try {
       const res = await axios.get(`/api/menus/get-parent-menus/${menuId}`);
       const { status, data } = res;
@@ -328,7 +328,7 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
 
   const contextValue: IMenusContext = {
     state,
-    getAllParentMenus,
+    reloadMenuNode: reloadMenuNode,
     getSubMenus, getSubCats, createMenu, viewMenu, editMenu, updateMenu, deleteMenu,
     getMenuMeals, createMeal, viewMeal, editMeal, updateMeal, deleteMeal
   }

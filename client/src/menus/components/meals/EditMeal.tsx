@@ -7,7 +7,7 @@ import { ActionTypes, FormMode, IMeal } from "menus/types";
 const EditMeal = ({ inLine }: {inLine: boolean}) => {
     const globalState = useGlobalState();
     const dispatch = useMenuDispatch();
-    const { state, updateMeal, getAllParentMenus } = useMenuContext();
+    const { state, updateMeal, reloadMenuNode } = useMenuContext();
     const menu = state.menus.find(c=>c.inEditing);
     const meal = menu!.meals.find(q => q.inEditing)
     
@@ -24,7 +24,7 @@ const EditMeal = ({ inLine }: {inLine: boolean}) => {
         const q = await updateMeal(object)
         if (meal!.parentMenu !== q.parentMenu) {
             dispatch({ type: ActionTypes.CLEAN_TREE, payload: { _id: q.parentMenu } })
-            await getAllParentMenus(q.parentMenu, q._id);
+            await reloadMenuNode(q.parentMenu, q._id);
         }
     };
 

@@ -68,7 +68,7 @@ export interface IMenusState {
 
 export interface IMenusContext {
 	state: IMenusState,
-	getAllParentMenus: (menuId: string, mealId: string | null) => Promise<any>;
+	reloadMenuNode: (menuId: string, mealId: string | null) => Promise<any>;
 	getSubMenus: ({ parentMenu, level }: IParentInfo) => void,
 	getSubCats: ({ parentMenu, level }: IParentInfo) => Promise<any>,
 	createMenu: (menu: IMenu) => void,

@@ -69,7 +69,7 @@ const MealForm = ({ mode, meal, submitForm, children }: IMealFormProps) => {
       <Form.Label>Menu</Form.Label>
         <Form.Group controlId="parentMenu" className="menu-select form-select-sm">
           <Dropdown>
-            <Dropdown.Toggle variant="light" id="dropdown-basic" className="px-2 py-1 text-primary" disabled={isDisabled}>
+            <Dropdown.Toggle variant="light" id="dropdown-basic" className="px-1 py-1 text-primary" disabled={isDisabled}>
               {formik.values.menuTitle}
             </Dropdown.Toggle>
             <Dropdown.Menu className="p-0">

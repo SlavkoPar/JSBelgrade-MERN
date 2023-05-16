@@ -27,8 +27,6 @@ const CatRow = ({ menu, dispatch, setParentMenu }: ICatRow) => {
     }
 
     const onSelectMenu = (menu: IMenu) => {
-        // Load data from server and reinitialize menu
-        // viewMenu(_id);
         setParentMenu(menu);
     }
 
