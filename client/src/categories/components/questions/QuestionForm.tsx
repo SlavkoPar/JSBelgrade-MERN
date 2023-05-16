@@ -67,7 +67,7 @@ const QuestionForm = ({ mode, question, submitForm, children }: IQuestionFormPro
       <Form onSubmit={formik.handleSubmit}>
 
       <Form.Label>Category</Form.Label>
-        <Form.Group controlId="parentCategory" className="category-select form-select-sm">
+        <Form.Group controlId="parentCategory" className="tree-view-node-select form-select-sm">
           <Dropdown>
             <Dropdown.Toggle variant="light" id="dropdown-basic" className="px-1 py-1 text-primary" disabled={isDisabled}>
               {formik.values.categoryTitle}
