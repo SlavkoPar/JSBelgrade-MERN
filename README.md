@@ -11,7 +11,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Support-Knowledge application
 
-Real application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) that uses Category/Question template.
+Real application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) that uses Category/Question template.\
+Video: [https://www.youtube.com/watch?v=8rYaTzUQfZA](https://www.youtube.com/watch?v=8rYaTzUQfZA)
+
 
 ## Available Scripts
 
