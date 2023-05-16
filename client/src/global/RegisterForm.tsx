@@ -56,22 +56,15 @@ const RegisterForm = () => {
     onSubmit: values => {
       //alert(JSON.stringify(values, null, 2));
       submitForm(values)
-      //props.handleClose(false);
     }
   });
 
   // eslint-disable-next-line no-self-compare
-  // const nameRef = useRef<HTMLAreaElement | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     nameRef.current!.focus()
   }, [nameRef])
-
-  // useEffect(() => {
-  //   if (isAuthenticated)
-  //     navigate('/')
-  // }, [isAuthenticated, navigate])
 
   if (showMessage) {
     return (
@@ -95,11 +88,6 @@ const RegisterForm = () => {
             as="input"
             name="wsName"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.wsName}
             style={{ width: '100%' }}
             placeholder={'Workspace name'}
@@ -118,11 +106,6 @@ const RegisterForm = () => {
             name="userName"
             ref={nameRef}
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.userName}
             style={{ width: '100%' }}
             placeholder={'Username'}
@@ -140,11 +123,6 @@ const RegisterForm = () => {
             as="input"
             name="email"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.email}
             style={{ width: '100%' }}
             placeholder={'name@example.com'}
@@ -163,11 +141,6 @@ const RegisterForm = () => {
             name="password"
             type="password"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.password}
             style={{ width: '100%' }}
             placeholder={'pwd'}

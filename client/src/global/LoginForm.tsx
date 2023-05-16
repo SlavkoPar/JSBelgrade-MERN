@@ -43,7 +43,6 @@ const LoginForm = ({ initialValues } : {initialValues: ILoginUser}) => {
   });
 
   // eslint-disable-next-line no-self-compare
-  // const nameRef = useRef<HTMLAreaElement | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -66,11 +65,6 @@ const LoginForm = ({ initialValues } : {initialValues: ILoginUser}) => {
             as="input"
             name="wsName"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.wsName !== formik.values.wsName)
-            //     formik.submitForm();
-            // }}
             value={formik.values.wsName}
             placeholder={'Workspace name'}
           />
@@ -88,11 +82,6 @@ const LoginForm = ({ initialValues } : {initialValues: ILoginUser}) => {
             name="userName"
             ref={nameRef}
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.userName !== formik.values.userName)
-            //     formik.submitForm();
-            // }}
             value={formik.values.userName}
             style={{ width: '100%' }}
             placeholder={'Username'}
@@ -111,11 +100,6 @@ const LoginForm = ({ initialValues } : {initialValues: ILoginUser}) => {
             name="password"
             type="password"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.password}
             style={{ width: '100%' }}
             placeholder={'pwd'}

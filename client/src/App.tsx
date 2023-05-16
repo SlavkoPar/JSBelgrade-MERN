@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Routes, Route, redirect, useLocation } from "react-router-dom";
 
 import { Navigation } from 'Navigation'
-import { useGlobalContext, useGlobalDispatch, useGlobalState } from 'global/GlobalProvider'
+import { useGlobalContext, useGlobalState } from 'global/GlobalProvider'
 
 import './App.css';
 
@@ -49,14 +49,7 @@ function App() {
     })()
   }, [signInUser, isAuthenticated, wsId, wsName, userName, password, everLoggedIn, location.pathname])
 
-  const globalDispatch = useGlobalDispatch();
-  useEffect(() => {
-    // TODO move this to Categories.tsx when react-router completes event for leaving route
-    // if (!location.pathname.startsWith('/categories')) {
-    //   globalDispatch({ type: GlobalActionTypes.SET_LAST_CATEGORY_EXPANDED })
-    // }
-  }, [location, globalDispatch]);
-
+  
   return (
     <Container fluid className="App">
       <header className="App-header">
