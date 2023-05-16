@@ -25,7 +25,7 @@ const EditMenu = ({ inLine }: {inLine: boolean}) => {
     return (
         <MenuForm
             inLine={inLine}
-            initialValues={menu!}
+            menu={menu!}
             mode={FormMode.editing}
             submitForm={submitForm}
         >

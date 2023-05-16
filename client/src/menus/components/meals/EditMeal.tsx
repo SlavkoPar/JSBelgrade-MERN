@@ -30,7 +30,7 @@ const EditMeal = ({ inLine }: {inLine: boolean}) => {
 
     return (
         <MealForm
-            initialValues={meal!}
+            meal={meal!}
             mode={FormMode.editing}
             submitForm={submitForm}
         >

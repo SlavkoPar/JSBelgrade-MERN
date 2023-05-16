@@ -11,7 +11,7 @@ const ViewCategory = ({ inLine }: {inLine: boolean}) => {
     return (
         <CategoryForm
             inLine={inLine}
-            initialValues={category!}
+            category={category!}
             mode={FormMode.viewing}
             submitForm={() => {}}
         >

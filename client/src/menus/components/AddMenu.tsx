@@ -33,7 +33,7 @@ const AddMenu = ({ menu, inLine } : { menu: IMenu, inLine: boolean}) => {
             {inLine ?
                 <InLineMenuForm
                     inLine={true}
-                    initialValues={formValues}
+                    menu={formValues}
                     mode={FormMode.adding}
                     submitForm={submitForm}
                 >
@@ -42,7 +42,7 @@ const AddMenu = ({ menu, inLine } : { menu: IMenu, inLine: boolean}) => {
                 :
                 <MenuForm
                     inLine={false}
-                    initialValues={formValues}
+                    menu={formValues}
                     mode={FormMode.adding}
                     submitForm={submitForm}
                 >

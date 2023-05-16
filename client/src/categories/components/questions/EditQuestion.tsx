@@ -30,7 +30,7 @@ const EditQuestion = ({ inLine }: {inLine: boolean}) => {
 
     return (
         <QuestionForm
-            initialValues={question!}
+            question={question!}
             mode={FormMode.editing}
             submitForm={submitForm}
         >

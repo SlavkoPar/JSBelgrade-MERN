@@ -88,14 +88,14 @@ export interface IMenusContext {
 
 export interface IMenuFormProps {
 	inLine: boolean;
-	initialValues: IMenu;
+	menu: IMenu;
 	mode: FormMode;
 	submitForm: (menu: IMenu) => void,
 	children: string
 }
 
 export interface IMealFormProps {
-	initialValues: IMeal;
+	meal: IMeal;
 	mode: FormMode;
 	submitForm: (meal: IMeal) => void,
 	children: string

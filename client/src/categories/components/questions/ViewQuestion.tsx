@@ -10,7 +10,7 @@ const ViewQuestion = ({ inLine }: {inLine: boolean}) => {
 
     return (
         <QuestionForm
-            initialValues={question!}
+            question={question!}
             mode={FormMode.viewing}
             submitForm={() => {}}
         >

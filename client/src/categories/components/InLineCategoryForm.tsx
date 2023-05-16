@@ -9,7 +9,7 @@ import { ActionTypes, ICategoryFormProps } from "../types";
 
 import { useCategoryDispatch } from "categories/CategoryProvider";
 
-const InLineCategoryForm = ({ inLine, mode, initialValues, submitForm, children }: ICategoryFormProps) => {
+const InLineCategoryForm = ({ inLine, mode, category, submitForm, children }: ICategoryFormProps) => {
   
   const dispatch = useCategoryDispatch();
 
@@ -19,7 +19,7 @@ const InLineCategoryForm = ({ inLine, mode, initialValues, submitForm, children 
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: category,
     validationSchema: Yup.object().shape({
       title: Yup.string().required("Required"),
       // email: Yup.string()

@@ -9,7 +9,7 @@ import { ActionTypes, IMenuFormProps } from "../types";
 
 import { useMenuDispatch } from "menus/MenuProvider";
 
-const InLineMenuForm = ({ inLine, mode, initialValues, submitForm, children }: IMenuFormProps) => {
+const InLineMenuForm = ({ inLine, mode, menu, submitForm, children }: IMenuFormProps) => {
   
   const dispatch = useMenuDispatch();
 
@@ -19,7 +19,7 @@ const InLineMenuForm = ({ inLine, mode, initialValues, submitForm, children }: I
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: menu,
     validationSchema: Yup.object().shape({
       title: Yup.string().required("Required"),
       // email: Yup.string()

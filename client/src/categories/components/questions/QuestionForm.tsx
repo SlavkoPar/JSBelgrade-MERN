@@ -14,27 +14,27 @@ import CatList from 'categories/components/selectCategory/CatList'
 
 import { useCategoryDispatch } from "categories/CategoryProvider";
 
-const QuestionForm = ({ mode, initialValues, submitForm, children }: IQuestionFormProps) => {
+const QuestionForm = ({ mode, question, submitForm, children }: IQuestionFormProps) => {
 
   const viewing = mode === FormMode.viewing;
   const editing = mode === FormMode.editing;
   const adding = mode === FormMode.adding;
 
-  const { title, _id } = initialValues;
+  const { title, _id } = question;
 
   const dispatch = useCategoryDispatch();
 
   const closeForm = () => {
-    dispatch({ type: ActionTypes.CLOSE_QUESTION_FORM, payload: { question: initialValues } })
+    dispatch({ type: ActionTypes.CLOSE_QUESTION_FORM, payload: { question } })
   }
 
   const cancelForm = () => {
-    dispatch({ type: ActionTypes.CANCEL_QUESTION_FORM, payload: { question: initialValues } })
+    dispatch({ type: ActionTypes.CANCEL_QUESTION_FORM, payload: { question } })
   }
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: question,
     validationSchema: Yup.object().shape({
       title: Yup.string().required("Required"),
     }),
@@ -87,11 +87,6 @@ const QuestionForm = ({ mode, initialValues, submitForm, children }: IQuestionFo
             as="input"
             name="parentCategory"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.parentCategory.toString()}
             placeholder='Category'
             className="text-primary w-100"
@@ -176,10 +171,10 @@ const QuestionForm = ({ mode, initialValues, submitForm, children }: IQuestionFo
 
         {(viewing || editing) &&
             <CreatedModifiedForm
-              created={initialValues.created}
-              createdBy={initialValues.createdBy}
-              modified={initialValues.modified}
-              modifiedBy={initialValues.modifiedBy}
+              created={question.created}
+              createdBy={question.createdBy}
+              modified={question.modified}
+              modifiedBy={question.modifiedBy}
               classes="text-primary"
             />
         }

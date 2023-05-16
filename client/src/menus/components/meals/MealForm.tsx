@@ -14,27 +14,27 @@ import CatList from 'menus/components/selectMenu/CatList'
 
 import { useMenuDispatch } from "menus/MenuProvider";
 
-const MealForm = ({ mode, initialValues, submitForm, children }: IMealFormProps) => {
+const MealForm = ({ mode, meal, submitForm, children }: IMealFormProps) => {
 
   const viewing = mode === FormMode.viewing;
   const editing = mode === FormMode.editing;
   const adding = mode === FormMode.adding;
 
-  const { title, _id } = initialValues;
+  const { title, _id } = meal;
 
   const dispatch = useMenuDispatch();
 
   const closeForm = () => {
-    dispatch({ type: ActionTypes.CLOSE_MEAL_FORM, payload: { meal: initialValues } })
+    dispatch({ type: ActionTypes.CLOSE_MEAL_FORM, payload: { meal } })
   }
 
   const cancelForm = () => {
-    dispatch({ type: ActionTypes.CANCEL_MEAL_FORM, payload: { meal: initialValues } })
+    dispatch({ type: ActionTypes.CANCEL_MEAL_FORM, payload: { meal } })
   }
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: meal,
     validationSchema: Yup.object().shape({
       title: Yup.string().required("Required"),
     }),
@@ -87,11 +87,6 @@ const MealForm = ({ mode, initialValues, submitForm, children }: IMealFormProps)
             as="input"
             name="parentMenu"
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.parentMenu.toString()}
             placeholder='Menu'
             className="text-primary w-100"
@@ -176,10 +171,10 @@ const MealForm = ({ mode, initialValues, submitForm, children }: IMealFormProps)
 
         {(viewing || editing) &&
             <CreatedModifiedForm
-              created={initialValues.created}
-              createdBy={initialValues.createdBy}
-              modified={initialValues.modified}
-              modifiedBy={initialValues.modifiedBy}
+              created={meal.created}
+              createdBy={meal.createdBy}
+              modified={meal.modified}
+              modifiedBy={meal.modifiedBy}
               classes="text-primary"
             />
         }

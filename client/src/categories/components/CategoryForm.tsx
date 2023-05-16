@@ -8,7 +8,7 @@ import { FormMode, ActionTypes, ICategoryFormProps, ICategory } from "categories
 
 import { useCategoryDispatch } from "categories/CategoryProvider";
 
-const CategoryForm = ({ mode, initialValues, submitForm, children }: ICategoryFormProps) => {
+const CategoryForm = ({ mode, category, submitForm, children }: ICategoryFormProps) => {
 
   const viewing = mode === FormMode.viewing;
   const editing = mode === FormMode.editing;
@@ -26,16 +26,9 @@ const CategoryForm = ({ mode, initialValues, submitForm, children }: ICategoryFo
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: category,
     validationSchema: Yup.object().shape({
       title: Yup.string().required("Required"),
-      // email: Yup.string()
-      //   .email("You have enter an invalid email address")
-      //   .required("Required"),
-      // rollno: Yup.number()
-      //   .positive("Invalid roll number")
-      //   .integer("Invalid roll number")
-      //   .required("Required"),
     }),
     onSubmit: (values: ICategory) => {
       //alert(JSON.stringify(values, null, 2));
@@ -65,11 +58,6 @@ const CategoryForm = ({ mode, initialValues, submitForm, children }: ICategoryFo
             name="title"
             ref={nameRef}
             onChange={formik.handleChange}
-            //onBlur={formik.handleBlur}
-            // onBlur={(e: React.FocusEvent<HTMLTextAreaElement>): void => {
-            //   if (isEdit && formik.initialValues.title !== formik.values.title)
-            //     formik.submitForm();
-            // }}
             value={formik.values.title}
             style={{ width: '100%' }}
             disabled={viewing}
@@ -91,10 +79,10 @@ const CategoryForm = ({ mode, initialValues, submitForm, children }: ICategoryFo
 
         {(viewing || editing) &&
           <CreatedModifiedForm
-            created={initialValues.created}
-            createdBy={initialValues.createdBy}
-            modified={initialValues.modified}
-            modifiedBy={initialValues.modifiedBy}
+            created={category.created}
+            createdBy={category.createdBy}
+            modified={category.modified}
+            modifiedBy={category.modifiedBy}
             classes="text-secondary"
           />
         }

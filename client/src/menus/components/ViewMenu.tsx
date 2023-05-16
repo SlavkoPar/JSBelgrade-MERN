@@ -11,7 +11,7 @@ const ViewMenu = ({ inLine }: {inLine: boolean}) => {
     return (
         <MenuForm
             inLine={inLine}
-            initialValues={menu!}
+            menu={menu!}
             mode={FormMode.viewing}
             submitForm={() => {}}
         >

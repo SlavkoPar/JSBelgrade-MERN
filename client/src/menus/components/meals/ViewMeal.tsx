@@ -10,7 +10,7 @@ const ViewMeal = ({ inLine }: {inLine: boolean}) => {
 
     return (
         <MealForm
-            initialValues={meal!}
+            meal={meal!}
             mode={FormMode.viewing}
             submitForm={() => {}}
         >

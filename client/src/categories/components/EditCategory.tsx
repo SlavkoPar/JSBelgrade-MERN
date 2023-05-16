@@ -25,7 +25,7 @@ const EditCategory = ({ inLine }: {inLine: boolean}) => {
     return (
         <CategoryForm
             inLine={inLine}
-            initialValues={category!}
+            category={category!}
             mode={FormMode.editing}
             submitForm={submitForm}
         >

@@ -88,14 +88,14 @@ export interface ICategoriesContext {
 
 export interface ICategoryFormProps {
 	inLine: boolean;
-	initialValues: ICategory;
+	category: ICategory;
 	mode: FormMode;
 	submitForm: (category: ICategory) => void,
 	children: string
 }
 
 export interface IQuestionFormProps {
-	initialValues: IQuestion;
+	question: IQuestion;
 	mode: FormMode;
 	submitForm: (question: IQuestion) => void,
 	children: string
