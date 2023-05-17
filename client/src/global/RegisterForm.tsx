@@ -8,6 +8,7 @@ import './formik.css';
 
 import { useGlobalContext } from 'global/GlobalProvider'
 import { Types } from "mongoose";
+import { useNavigate } from "react-router-dom";
 
 export interface ILoginFormProps {
 }
@@ -16,9 +17,9 @@ const RegisterForm = () => {
 
   const { globalState, registerUser } = useGlobalContext();
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
   const closeForm = () => {
-    //navigate('/');
+    navigate('/');
   }
 
   const [showMessage, setShowMessage] = useState(false);
