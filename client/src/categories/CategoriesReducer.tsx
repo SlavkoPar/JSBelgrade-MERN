@@ -123,21 +123,21 @@ const reducer = (state: ICategoriesState, action: CategoriesActions) => {
       };
     }
 
-    // case ActionTypes.CLEAN_SUB_TREE: {
-    //   const { _id } = action.payload.category;
-    //   const arr = markForClean(state.categories, _id!)
-    //   console.log('clean:', arr)
-    //   const _ids = arr.map(c => c._id)
-    //   if (arr.length === 0)
-    //     return {
-    //       ...state
-    //     }
-    //   else
-    //     return {
-    //       ...state,
-    //       categories: state.categories.filter(c => !_ids.includes(c._id))
-    //     }
-    // }
+    case ActionTypes.CLEAN_SUB_TREE: {
+      const { _id } = action.payload.category;
+      const arr = markForClean(state.categories, _id!)
+      console.log('clean:', arr)
+      const _ids = arr.map(c => c._id)
+      if (arr.length === 0)
+        return {
+          ...state
+        }
+      else
+        return {
+          ...state,
+          categories: state.categories.filter(c => !_ids.includes(c._id))
+        }
+    }
 
     case ActionTypes.CLEAN_TREE: {
       return {

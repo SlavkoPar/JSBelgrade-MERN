@@ -48,7 +48,7 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   }, [dispatch]);
 
   const getSubCategories = useCallback(({ parentCategory, level }: IParentInfo) => {
-    const url = `/api/categories/${wsId}-${parentCategory}`
+    const url = `/api/categories/get-sub-categories/${wsId}/${parentCategory}`
     //console.log('FETCHING --->>> getSubCategories', level, parentCategory)
     //dispatch({ type: ActionTypes.SET_LOADING })
     axios
@@ -69,16 +69,16 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
 
   const getSubCats = useCallback(async ({ parentCategory, level }: IParentInfo): Promise<any> => {
     try {
-      const url = `/api/categories/${wsId}-${parentCategory}`
+      const url = `/api/categories/get-sub-categories/${wsId}/${parentCategory}`
       const res = await axios.get(url)
       const { status, data } = res;
       if (status === 200) {
-        const subCategories = data.map((c: ICategory) => ({
+        const subCats = data.map((c: ICategory) => ({
           ...c,
           questions: [],
           isExpanded: false
         }))
-        return subCategories;
+        return subCats;
       }
       else {
         console.log('Status is not 200', status)
@@ -164,7 +164,8 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
       .put(url, category)
       .then(({ status, data: category }) => {
         if (status === 200) {
-          console.log("Category successfully updated");
+          console.log("Category successfully updated", category);
+          dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { category } });
           dispatch({ type: ActionTypes.SET_CATEGORY, payload: { category } });
           dispatch({ type: ActionTypes.CLOSE_CATEGORY_FORM })
         }

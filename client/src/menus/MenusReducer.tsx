@@ -123,21 +123,21 @@ const reducer = (state: IMenusState, action: MenusActions) => {
       };
     }
 
-    // case ActionTypes.CLEAN_SUB_TREE: {
-    //   const { _id } = action.payload.menu;
-    //   const arr = markForClean(state.menus, _id!)
-    //   console.log('clean:', arr)
-    //   const _ids = arr.map(c => c._id)
-    //   if (arr.length === 0)
-    //     return {
-    //       ...state
-    //     }
-    //   else
-    //     return {
-    //       ...state,
-    //       menus: state.menus.filter(c => !_ids.includes(c._id))
-    //     }
-    // }
+    case ActionTypes.CLEAN_SUB_TREE: {
+      const { _id } = action.payload.menu;
+      const arr = markForClean(state.menus, _id!)
+      console.log('clean:', arr)
+      const _ids = arr.map(c => c._id)
+      if (arr.length === 0)
+        return {
+          ...state
+        }
+      else
+        return {
+          ...state,
+          menus: state.menus.filter(c => !_ids.includes(c._id))
+        }
+    }
 
     case ActionTypes.CLEAN_TREE: {
       return {

@@ -48,7 +48,7 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
   }, [dispatch]);
 
   const getSubMenus = useCallback(({ parentMenu, level }: IParentInfo) => {
-    const url = `/api/menus/${wsId}-${parentMenu}`
+    const url = `/api/menus/get-sub-menus/${wsId}/${parentMenu}`
     //console.log('FETCHING --->>> getSubMenus', level, parentMenu)
     //dispatch({ type: ActionTypes.SET_LOADING })
     axios
@@ -69,16 +69,16 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
 
   const getSubCats = useCallback(async ({ parentMenu, level }: IParentInfo): Promise<any> => {
     try {
-      const url = `/api/menus/${wsId}-${parentMenu}`
+      const url = `/api/menus/get-sub-menus/${wsId}/${parentMenu}`
       const res = await axios.get(url)
       const { status, data } = res;
       if (status === 200) {
-        const subMenus = data.map((c: IMenu) => ({
+        const subCats = data.map((c: IMenu) => ({
           ...c,
           meals: [],
           isExpanded: false
         }))
-        return subMenus;
+        return subCats;
       }
       else {
         console.log('Status is not 200', status)
@@ -164,7 +164,8 @@ export const MenuProvider: React.FC<Props> = ({ children }) => {
       .put(url, menu)
       .then(({ status, data: menu }) => {
         if (status === 200) {
-          console.log("Menu successfully updated");
+          console.log("Menu successfully updated", menu);
+          dispatch({ type: ActionTypes.CLEAN_SUB_TREE, payload: { menu } });
           dispatch({ type: ActionTypes.SET_MENU, payload: { menu } });
           dispatch({ type: ActionTypes.CLOSE_MENU_FORM })
         }

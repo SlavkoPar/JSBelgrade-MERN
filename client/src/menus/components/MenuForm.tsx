@@ -31,8 +31,7 @@ const MenuForm = ({ mode, menu, submitForm, children }: IMenuFormProps) => {
       title: Yup.string().required("Required"),
     }),
     onSubmit: (values: IMenu) => {
-      //alert(JSON.stringify(values, null, 2));
-      console.log('MenuForm.onSubmit', JSON.stringify(values, null, 2))
+      // console.log('MenuForm.onSubmit', JSON.stringify(values, null, 2))
       submitForm(values)
       //props.handleClose(false);
     }

@@ -192,10 +192,8 @@ router.get('/', (req, res, next) => {
 
 
 // Get Sub Categories
-router.get('/:wsId_id', (req, res, next) => {
-  const arr = req.params.wsId_id.split('-');
-  const wsId = arr[0];
-  const categoryId = arr[1];
+router.get('/get-sub-categories/:wsId/:categoryId', (req, res, next) => {
+  const { wsId, categoryId } = req.params;
   const match = (categoryId === 'null') ? {
     wsId: ObjectId(wsId),
     parentCategory: null
@@ -250,41 +248,6 @@ router
         }
       },
       ...arrPipeline,
-      /*{
-        $lookup: {
-          from: "questions",
-          let: {
-            // searchId: {
-            //   $toObjectId: "$_id",
-            // },
-            searchId: "$_id"
-          },
-          //search query with our [searchId] value
-          pipeline: [
-            //searching [searchId] value equals your field [_id]
-            {
-              $match: {
-                $expr: [
-                  {
-                    parentCategory: "$$searchId",
-                  },
-                ],
-              },
-            },
-            //projecting only fields you reaaly need, otherwise you will store all - huge data loads
-            {
-              $project: {
-                title: 1,
-                // created: 1,
-                // createdBy: 1,
-                // modified: 1,
-                // modifiedBy: 1,
-              },
-            },
-          ],
-          as: "questions",
-        },
-      }*/
       {
         $lookup: {
           from: "questions",
@@ -345,8 +308,9 @@ router
           console.log(error);
           return next(error);
         } else {
-          res.json(data);
+          //res.json(data);
           console.log("Category updated successfully !", data);
+          res.redirect(303, `/api/categories/get-category/${req.params.id}`)
         }
       }
     );

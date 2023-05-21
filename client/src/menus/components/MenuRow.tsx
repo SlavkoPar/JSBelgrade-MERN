@@ -176,7 +176,7 @@ const MenuRow = ({ menu }: { menu: IMenu }) => {
                     {isExpanded &&
                         <>
                             <MenuList level={level + 1} parentMenu={_id!} title={title} />
-                            {showMeals &&
+                            { showMeals &&
                                 <MealList level={level + 1} parentMenu={_id!} title={title} />
                             }
                         </>

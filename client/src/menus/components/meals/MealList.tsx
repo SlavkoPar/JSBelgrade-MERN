@@ -36,7 +36,7 @@ const MealList = ({ title, parentMenu, level }: IParentInfo) => {
         <div className={`ms-0`}>
             <>
                 <ListGroup as="ul" variant='dark' className={level > 1 ? 'mb-0 ms-2' : 'mb-0'}>
-                    {meals.map((meal: IMeal) =>
+                    { meals.map((meal: IMeal) =>
                         <MealRow
                             meal={meal}
                             menuInAdding={menu!.inAdding}

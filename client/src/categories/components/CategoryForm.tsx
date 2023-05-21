@@ -31,8 +31,7 @@ const CategoryForm = ({ mode, category, submitForm, children }: ICategoryFormPro
       title: Yup.string().required("Required"),
     }),
     onSubmit: (values: ICategory) => {
-      //alert(JSON.stringify(values, null, 2));
-      console.log('CategoryForm.onSubmit', JSON.stringify(values, null, 2))
+      // console.log('CategoryForm.onSubmit', JSON.stringify(values, null, 2))
       submitForm(values)
       //props.handleClose(false);
     }

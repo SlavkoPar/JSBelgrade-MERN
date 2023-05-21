@@ -176,7 +176,7 @@ const CategoryRow = ({ category }: { category: ICategory }) => {
                     {isExpanded &&
                         <>
                             <CategoryList level={level + 1} parentCategory={_id!} title={title} />
-                            {showQuestions &&
+                            { showQuestions &&
                                 <QuestionList level={level + 1} parentCategory={_id!} title={title} />
                             }
                         </>
