@@ -19,6 +19,7 @@ const initGlobalState: IGlobalState = {
     isAuthenticated: false,
     everLoggedIn: false,
     canEdit: false,
+    isOwner: false,
     isDarkMode: true,
     variant: 'dark',
     bg: 'dark',
@@ -123,6 +124,7 @@ const reducer: Reducer<IGlobalState, GlobalActions> = (state, action) => {
                     //visited: user.visited!.date
                 },
                 canEdit: user.role !== ROLES.VIEWER,
+                isOwner: user.role !== ROLES.OWNER,
                 isAuthenticated: true,
                 everLoggedIn: true,
                 error: undefined

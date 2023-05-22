@@ -57,12 +57,10 @@ const Providered = ({ menuId_mealId }: IProps) => {
                     </div>
                 </Col>
                 <Col xs={0} md={5}>
-                    {/* {store.mode === FORM_MODES.ADD && <Add menu={menu??initialMenu} />} */}
                     {/* <div class="d-none d-lg-block">hide on screens smaller than lg</div> */}
                     <div id='div-details' className="d-none d-md-block">
                         {state.mode === Mode.ViewingMenu && <ViewMenu inLine={false} />}
                         {state.mode === Mode.EditingMenu && <EditMenu inLine={false} />}
-                        {/* {state.mode === FORM_MODES.ADD_MEAL && <AddMeal menu={null} />} */}
                         {state.mode === Mode.ViewingMeal && <ViewMeal inLine={false} />}
                         {state.mode === Mode.EditingMeal && <EditMeal inLine={false} />}
                     </div>

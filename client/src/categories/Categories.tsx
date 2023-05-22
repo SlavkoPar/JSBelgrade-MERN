@@ -57,12 +57,10 @@ const Providered = ({ categoryId_questionId }: IProps) => {
                     </div>
                 </Col>
                 <Col xs={0} md={5}>
-                    {/* {store.mode === FORM_MODES.ADD && <Add category={category??initialCategory} />} */}
                     {/* <div class="d-none d-lg-block">hide on screens smaller than lg</div> */}
                     <div id='div-details' className="d-none d-md-block">
                         {state.mode === Mode.ViewingCategory && <ViewCategory inLine={false} />}
                         {state.mode === Mode.EditingCategory && <EditCategory inLine={false} />}
-                        {/* {state.mode === FORM_MODES.ADD_QUESTION && <AddQuestion category={null} />} */}
                         {state.mode === Mode.ViewingQuestion && <ViewQuestion inLine={false} />}
                         {state.mode === Mode.EditingQuestion && <EditQuestion inLine={false} />}
                     </div>

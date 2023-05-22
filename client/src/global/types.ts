@@ -59,6 +59,7 @@ export interface IGlobalState {
 	everLoggedIn: boolean;
 	authUser: IAuthUser;
 	canEdit: boolean,
+	isOwner: boolean,
 	isDarkMode: boolean;
 	variant: string,
 	bg: string,
