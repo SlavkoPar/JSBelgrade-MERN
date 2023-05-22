@@ -7,13 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 **M**ongoDB — document database.\
 **E**xpress(.js) — web framework.\
 **N**ode.js\
-**R**eact(.js) — a client-side JavaScript framework.\
-
-## Support-Knowledge application
-
-Real application [https://support-knowledge.onrender.com](https://support-knowledge.onrender.com) that uses Category/Question template.\
-Video: [https://www.youtube.com/watch?v=8rYaTzUQfZA](https://www.youtube.com/watch?v=8rYaTzUQfZA)
-
+**R**eact(.js) — a client-side JavaScript framework.
 
 ## Available Scripts
 
