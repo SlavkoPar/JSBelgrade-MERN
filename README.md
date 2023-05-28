@@ -37,9 +37,10 @@ We can concurrently **debug** Node and React
 
 ### App structure
   Client app is created by command: `npx create-react-app JSBelgrade-MERN typescript`\
-  and moved to the folder `/client`
+  and moved to the folder `/client`\
   Project uses React Hooks.\
-  This template treats Parent -> Child entity relation, known as 1:N relation.
+  This template treats Parent -> Child entity relation, known as 1:N relation.\
+  We could create additional templates too.\
   We have **GlobalProvider** and another **Provider** for each Page
   ```
   <GlobalProvider>
@@ -63,8 +64,8 @@ We can concurrently **debug** Node and React
 ### Generator
 ##### `yarn run generate-menu-meal`
 
-This is the sample of generating code for `menu-meal' relation.
-You can clone this script, and customize it for other relations you need.
+This is the sample of generating code for `menu-meal' relation.\
+You can clone this script, and customize it for other relations you need.\
 Generator will re-generate code for CRUD operations of two related entites: 'parent table' -> 'child table',\
 based on relation **categories** -> **questions**.\
 It is especially useful for Admin modules, where apps have many tables to maintain.
