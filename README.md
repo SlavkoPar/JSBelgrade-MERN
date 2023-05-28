@@ -26,10 +26,14 @@ To make concurrently work with React and Node, we added scripts in **package.jso
 We can concurrently **debug** Node and React
 
 ### Try this Application at your local machine
-  *  First, clone this repository.
-  *  Install MongoDB at your local machine, or create free cloud MongoDB database.
-  *  Enter connection string into the **.env** like I did, for example:
+  *  First, clone this repository
+  *  cd JSBelgrade-MERN
+  *  Execute `yarn install`, to install all dependencies for a project.
+  *  Install MongoDB at your local machine, or create free cloud MongoDB database.\
+    [Set Up A MongoDB Cluster](https://www.mongodb.com/basics/clusters/mongodb-cluster-setup)
+  *  Enter connection string into the **/.env** like I did, for example:
      **MY_MONGO_URI='mongodb://127.0.0.1:27017/JSBelgrade-MERN'**
+  *  Execute: `yarn run dev`
 
 ### Generator
 ##### `yarn run generate-menu-meal`
