@@ -38,9 +38,9 @@ We can concurrently **debug** Node and React
 ### App structure
   Client app is created by command: `npx create-react-app JSBelgrade-MERN typescript`\
   and moved to the folder `/client`
-
   Project uses React Hooks.\
-  We have GlobalProvider and another Provider for each Page
+  This template treats Parent -> Child entity relation, known as 1:N relation.
+  We have **GlobalProvider** and another **Provider** for each Page
   ```
   <GlobalProvider>
     <Router>
@@ -63,9 +63,11 @@ We can concurrently **debug** Node and React
 ### Generator
 ##### `yarn run generate-menu-meal`
 
-Generator will generate code for CRUD operations of two related entites: 'parent table' -> 'child table',\
+This is the sample of generating code for `menu-meal' relation.
+You can clone this script, and customize it for other relations you need.
+Generator will re-generate code for CRUD operations of two related entites: 'parent table' -> 'child table',\
 based on relation **categories** -> **questions**.\
-It is especially useful for Admin modules, where apps sometimes have many tables to maintain.
+It is especially useful for Admin modules, where apps have many tables to maintain.
   *  NodeJS script copies **categories** folder to **menus** folder.
   *  It replaces names of files.
   *  It replaces names of variables used in code, for example **CategoryRow** to **MenuRow**.
@@ -73,19 +75,8 @@ It is especially useful for Admin modules, where apps sometimes have many tables
   *  Generator creates Express routes: /routes/menu.route.js and /routes/meal.route.js
   *  Next version of Generator will be much more sofisticated.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To learn React, check out the [React documentation](https://react.dev/).
