@@ -40,8 +40,9 @@ We can concurrently **debug** Node and React
   and moved to the folder `/client`
 
   Project uses React Hooks.\
-  We have GlobalProvider and another Provider for each Page\
-  ```<GlobalProvider>
+  We have GlobalProvider and another Provider for each Page
+  ```
+  <GlobalProvider>
     <Router>
       <App>
         <CategoryProvider>
@@ -56,7 +57,8 @@ We can concurrently **debug** Node and React
         </MenuProvider>
       </App>
     </Router>
-  </GlobalProvider>```
+  </GlobalProvider>
+```
 
 ### Generator
 ##### `yarn run generate-menu-meal`
