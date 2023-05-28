@@ -41,22 +41,22 @@ We can concurrently **debug** Node and React
 
   Project uses React Hooks.\
   We have GlobalProvider and another Provider for each Page\
-  `<GlobalProvider>
-    <Router>
-      <App>
-        <CategoryProvider>
-          <Categories>
-            CRUD operations
-          </Categories>
-        </CategoryProvider>
-        <MenuProvider>
-          <Menus>
-            CRUD operations
-          </Menus>
-        </MenuProvider>
-      </App>
-    </Router>
-  </GlobalProvider>`
+  `<GlobalProvider>\
+    <Router>\
+      <App>\
+        <CategoryProvider>\
+          <Categories>\
+            CRUD operations\
+          </Categories>\
+        </CategoryProvider>\
+        <MenuProvider>\
+          <Menus>\
+            CRUD operations\
+          </Menus>\
+        </MenuProvider>\
+      </App>\
+    </Router>\
+  </GlobalProvider>`\
 
 ### Generator
 ##### `yarn run generate-menu-meal`
