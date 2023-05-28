@@ -30,10 +30,33 @@ We can concurrently **debug** Node and React
   *  Execute `cd JSBelgrade-MERN`
   *  Execute `yarn install`, to install all dependencies for a project.
   *  Install MongoDB at your local machine, or create free cloud MongoDB database.\
-    [Set Up A MongoDB Cluster](https://www.mongodb.com/basics/clusters/mongodb-cluster-setup){:target="_blank"}
-  *  Enter connection string into the **/.env** like I did, for example:
+    [Set Up A MongoDB Cluster](https://www.mongodb.com/basics/clusters/mongodb-cluster-setup)
+  *  Enter connection string into the **/.env** file like I did, for example:
      **MY_MONGO_URI='mongodb://127.0.0.1:27017/JSBelgrade-MERN'**
   *  Execute: `yarn run dev`
+
+### App structure
+  Client app is created by command: `npx create-react-app JSBelgrade-MERN typescript`\
+  and moved to the folder `/client`
+
+  Project uses React Hooks.\
+  We have GlobalProvider and another Provider for each Page\
+  `<GlobalProvider>
+    <Router>
+      <App>
+        <CategoryProvider>
+          <Categories>
+            CRUD operations
+          </Categories>
+        </CategoryProvider>
+        <MenuProvider>
+          <Menus>
+            CRUD operations
+          </Menus>
+        </MenuProvider>
+      </App>
+    </Router>
+  </GlobalProvider>`
 
 ### Generator
 ##### `yarn run generate-menu-meal`
