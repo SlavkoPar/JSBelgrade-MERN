@@ -34,6 +34,7 @@ We can concurrently **debug** Node and React
   *  Enter connection string into the **/.env** file like I did, for example:
      **MY_MONGO_URI='mongodb://127.0.0.1:27017/JSBelgrade-MERN'**
   *  Execute: `yarn run dev`
+  *  Suggestion: Start with investigation of code structure through the /TODO List
 
 ### App structure
   Client app is created by command: `npx create-react-app JSBelgrade-MERN typescript`\
