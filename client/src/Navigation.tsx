@@ -86,6 +86,12 @@ export function Navigation(props: INavigation) {
               }
 
               {isAuthenticated &&
+                <NavLink to="/todos" className="nav-link">
+                  <FontAwesomeIcon icon={faThumbsUp} color='lightblue' />{' '}TODO List
+                </NavLink>
+              }
+
+              {isAuthenticated &&
                 <NavLink to="/menus" className="nav-link">
                   <FontAwesomeIcon icon={faThumbsUp} color='lightblue' />{' '}Meals
                 </NavLink>

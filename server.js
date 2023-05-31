@@ -11,6 +11,8 @@ const userRoute = require('./routes/user.route')
 const categoryRoute = require('./routes/category.route')
 const questionRoute = require('./routes/question.route')
 
+const todoRoute = require('./routes/todo.route')
+
 const menuRoute = require('./routes/menu.route')
 const mealRoute = require('./routes/meal.route')
 
@@ -45,6 +47,8 @@ app.use('/api/groups', groupRoute)
 app.use('/api/users', userRoute)
 app.use('/api/categories', categoryRoute)
 app.use('/api/questions', questionRoute)
+
+app.use('/api/todos', todoRoute)
 
 app.use('/api/menus', menuRoute)
 app.use('/api/meals', mealRoute)
