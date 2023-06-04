@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import { Routes, Route, redirect, useLocation } from "react-router-dom";
+import { Routes, Route, redirect, useLocation, useNavigate } from "react-router-dom";
 
 import { Navigation } from 'Navigation'
 import { useGlobalContext, useGlobalState } from 'global/GlobalProvider'
@@ -31,24 +31,35 @@ function App() {
   };
 
   let location = useLocation();
+  const navigate = useNavigate();
+
+  const locationPathname = location.pathname;
 
   useEffect(() => {
     (async () => {
-      if (!isAuthenticated) {
+      const isAuthRoute =
+        locationPathname.startsWith('/register') ||
+        locationPathname.startsWith('/sign-in') ||
+        locationPathname.startsWith('/about');  // allow about without egistration
+
+      if (!isAuthenticated && !isAuthRoute) {
         if (everLoggedIn) {
+          let signedIn = false;
           if (userName !== '') {
-            const signedIn = await signInUser({ wsId, wsName, userName, password });
-            if (!signedIn && everLoggedIn) {
-              return redirect('/sign-in')
-            }
+            signedIn = await signInUser({ wsId, wsName, userName, password });
+          }
+          if (!signedIn) {
+            navigate('/sign-in')
           }
         }
         else {
-          return redirect('/register')
+          const returnUrl = encodeURIComponent(locationPathname);
+          if (!locationPathname.includes('/register'))
+            navigate('/register/' + returnUrl, { replace: true })
         }
       }
     })()
-  }, [signInUser, isAuthenticated, wsId, wsName, userName, password, everLoggedIn, location.pathname])
+  }, [signInUser, isAuthenticated, wsId, wsName, userName, password, everLoggedIn, locationPathname, navigate])
 
   
   return (
