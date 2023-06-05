@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, Dispatch, useCallback } from "react";
+import React, { createContext, useContext, useReducer, Dispatch, useCallback, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 
 import { IUser, IGlobalContext, ILoginUser, ROLES, GlobalActionTypes } from 'global/types'
@@ -114,6 +114,19 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
       return false;
     }
   }, [dispatch]);
+
+
+  const { authUser, isAuthenticated, everLoggedIn } = globalState;
+  useEffect(() => {
+    (async () => {
+      const { wsId, wsName, userName, password } = authUser;
+      if (!isAuthenticated) {
+        if (everLoggedIn && userName !== '') {
+          await signInUser({ wsId, wsName, userName, password });
+        }
+      }
+    })()
+  }, [isAuthenticated, authUser, everLoggedIn, signInUser])
 
 
   return (

@@ -118,7 +118,7 @@ export function Navigation(props: INavigation) {
               </NavDropdown> */}
 
               {!isAuthenticated &&
-                <NavLink to="/register" className="nav-link">
+                <NavLink to="/register/fromNavigation" className="nav-link">
                   Register
                 </NavLink>
               }

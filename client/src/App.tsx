@@ -19,8 +19,7 @@ import Todos from 'todos/Todos';
 function App() {
 
   const { signInUser } = useGlobalContext();
-  const { authUser, isAuthenticated, everLoggedIn } = useGlobalState()
-  const { wsId, wsName, userName, password } = authUser;
+  const { isAuthenticated, everLoggedIn } = useGlobalState()
 
   const formInitialValues = {
     wsName: 'MySPACE',
@@ -40,28 +39,18 @@ function App() {
       const isAuthRoute =
         locationPathname.startsWith('/register') ||
         locationPathname.startsWith('/sign-in') ||
-        locationPathname.startsWith('/about');  // allow about without egistration
+        locationPathname.startsWith('/about');  // allow about without registration
 
       if (!isAuthenticated && !isAuthRoute) {
-        if (everLoggedIn) {
-          let signedIn = false;
-          if (userName !== '') {
-            signedIn = await signInUser({ wsId, wsName, userName, password });
-          }
-          if (!signedIn) {
-            navigate('/sign-in')
-          }
-        }
-        else {
+        if (!everLoggedIn) {
           const returnUrl = encodeURIComponent(locationPathname);
           if (!locationPathname.includes('/register'))
             navigate('/register/' + returnUrl, { replace: true })
         }
       }
     })()
-  }, [signInUser, isAuthenticated, wsId, wsName, userName, password, everLoggedIn, locationPathname, navigate])
+  }, [signInUser, isAuthenticated, everLoggedIn, locationPathname, navigate])
 
-  
   return (
     <Container fluid className="App">
       <header className="App-header">
@@ -75,7 +64,7 @@ function App() {
               <Route path="/categories" element={<Categories />} />
               <Route path="/todos" element={<Todos />} />
               <Route path="/menus" element={<Menus />} />
-              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/register/:returnUrl" element={<RegisterForm />} />
               <Route path="/sign-in" element={<LoginForm initialValues={formInitialValues} />} />
               <Route path="/about" element={<About />} />
               <Route path="/health" element={<Health />} />

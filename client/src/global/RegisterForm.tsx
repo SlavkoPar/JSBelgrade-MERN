@@ -8,18 +8,27 @@ import './formik.css';
 
 import { useGlobalContext } from 'global/GlobalProvider'
 import { Types } from "mongoose";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export interface ILoginFormProps {
 }
 
+type RegisterParams = {
+  returnUrl: string;
+};
+
 const RegisterForm = () => {
 
   const { globalState, registerUser } = useGlobalContext();
+  let { returnUrl } = useParams<RegisterParams>();
 
   let navigate = useNavigate();
   const closeForm = () => {
-    navigate('/');
+    navigate('/register'); // '/register' will prevent: navigate('/register/' + returnUrl, { replace: true })
+  }
+
+  const goBack = () => {
+    navigate(returnUrl && returnUrl !== 'fromNavigation' ? returnUrl : '/')
   }
 
   const [showMessage, setShowMessage] = useState(false);
@@ -28,9 +37,9 @@ const RegisterForm = () => {
     const user = await registerUser(loginUser);
     if (!user)
       return;
-      
+
     setShowMessage(true)
-    closeForm();
+    // closeForm();
   }
 
   const initialValues: ILoginUser = {
@@ -69,11 +78,16 @@ const RegisterForm = () => {
 
   if (showMessage) {
     return (
-      <div className="form bg-warning">
-        <p>Small demo database has been created, to better understand relations:</p>
-        <p>Category -{">"} Questions</p>
-        <p>You can easily remove these records</p>
-      </div>
+      <>
+        <div className="form bg-warning">
+          <p>Small demo database has been created, to better understand relations:</p>
+          <p>Category -{">"} Questions</p>
+          <p>You can easily remove these records</p>
+        </div>
+        <div className="form bg-info my-2 py-2">
+          <button onClick={goBack} title='Back'>Go Back</button>
+        </div>
+      </>
     )
   }
 
